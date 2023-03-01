@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="632.0" prefWidth="611.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.main.ModifyAppointmentController">
+   <children>
+      <Label fx:id="labelHeader" layoutX="32.0" layoutY="21.0" text="Add Appointments" />
+      <Label fx:id="labelAppointmentId" layoutX="40.0" layoutY="90.0" text="Appointment ID" />
+      <Label fx:id="labelTitle" layoutX="40.0" layoutY="120.0" text="Title" />
+      <Label fx:id="labelDescription" layoutX="40.0" layoutY="150.0" text="Description" />
+      <Label fx:id="labelLocation" layoutX="40.0" layoutY="180.0" text="Location" />
+      <Label fx:id="labelType" layoutX="40.0" layoutY="210.0" text="Type" />
+      <Label fx:id="labelContactId" layoutX="40.0" layoutY="240.0" text="Contact ID" />
+      <Label fx:id="labelCustomerId" layoutX="40.0" layoutY="270.0" text="Customer ID" />
+      <Label fx:id="labelUserId" layoutX="40.0" layoutY="300.0" text="User ID" />
+      <Label fx:id="labelStartDate" layoutX="40.0" layoutY="330.0" text="Start Date" />
+      <Label fx:id="labelStartTime" layoutX="40.0" layoutY="360.0" text="Start Time" />
+      <Label fx:id="labelEndDate" layoutX="320.0" layoutY="330.0" text="End Date" />
+      <Label fx:id="labelEndTime" layoutX="320.0" layoutY="360.0" text="End Time" />
+      <TextField fx:id="textFieldAppointmentId" disable="true" layoutX="141.0" layoutY="86.0" />
+      <TextField fx:id="textFieldTitle" layoutX="141.0" layoutY="116.0" />
+      <TextField fx:id="textFieldDescription" layoutX="141.0" layoutY="146.0" />
+      <TextField fx:id="textFieldLocation" layoutX="141.0" layoutY="176.0" />
+      <TextField fx:id="textFieldType" layoutX="141.0" layoutY="206.0" />
+      <Button fx:id="buttonSave" layoutX="207.0" layoutY="462.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="50.0" text="Save" />
+      <Button fx:id="buttonCancel" layoutX="264.0" layoutY="462.0" mnemonicParsing="false" text="Cancel" />
+      <MenuButton fx:id="menuButtonContactId" layoutX="141.0" layoutY="236.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="MenuButton">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </MenuButton>
+      <MenuButton fx:id="menuButtonCustomerId" layoutX="141.0" layoutY="266.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="MenuButton">
+         <items>
+            <MenuItem mnemonicParsing="false" text="Action 1" />
+            <MenuItem mnemonicParsing="false" text="Action 2" />
+         </items>
+      </MenuButton>
+      <MenuButton fx:id="menuButtonUserId" layoutX="141.0" layoutY="296.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="MenuButton">
+         <items>
+            <MenuItem mnemonicParsing="false" text="Action 1" />
+            <MenuItem mnemonicParsing="false" text="Action 2" />
+         </items>
+      </MenuButton>
+      <DatePicker fx:id="datePickerStartDate" layoutX="141.0" layoutY="326.0" prefHeight="25.0" prefWidth="149.0" />
+      <DatePicker fx:id="datePickerEndDate" layoutX="421.0" layoutY="326.0" prefHeight="25.0" prefWidth="149.0" />
+      <ChoiceBox fx:id="choiceBoxStartTimeHour" layoutX="141.0" layoutY="356.0" prefHeight="25.0" prefWidth="67.0" />
+      <ChoiceBox fx:id="choiceBoxStartTimeMinute" layoutX="223.0" layoutY="356.0" prefHeight="25.0" prefWidth="67.0" />
+      <ChoiceBox fx:id="choiceBoxEndTimeHour" layoutX="421.0" layoutY="356.0" prefHeight="25.0" prefWidth="67.0" />
+      <ChoiceBox fx:id="choiceBoxEndTimeMinute" layoutX="503.0" layoutY="356.0" prefHeight="25.0" prefWidth="67.0" />
+   </children>
+</AnchorPane>

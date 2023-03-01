@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="501.0" prefWidth="842.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.main.ReportsViewByMonthController">
+   <children>
+      <Label fx:id="labelHeader" layoutX="58.0" layoutY="26.0" text="Reports" />
+      <RadioButton fx:id="radioButtonSortByContact" layoutX="58.0" layoutY="63.0" mnemonicParsing="false" selected="true" text="Contact Schedule">
+         <toggleGroup>
+            <ToggleGroup fx:id="radioGroup" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="radioButtonSortByType" layoutX="266.0" layoutY="63.0" mnemonicParsing="false" text="Total Customers by Type" toggleGroup="$radioGroup" />
+      <RadioButton fx:id="radioButtonSortByMonth" layoutX="58.0" layoutY="94.0" mnemonicParsing="false" selected="true" text="Total Customers by Month" toggleGroup="$radioGroup" />
+      <RadioButton fx:id="radioButtonSortByCountry" layoutX="266.0" layoutY="94.0" mnemonicParsing="false" text="Total Customers by Country" toggleGroup="$radioGroup" />
+      <Label fx:id="labelSortedBy" layoutX="225.0" layoutY="128.0" text="Month" />
+      <MenuButton fx:id="menuButtonSortBy" layoutX="323.0" layoutY="124.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="109.0">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </MenuButton>
+      <TableView fx:id="tableViewMainTable" layoutX="13.0" layoutY="168.0" prefHeight="200.0" prefWidth="813.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
+      <Button fx:id="buttonCancel" layoutX="76.0" layoutY="415.0" mnemonicParsing="false" text="Cancel" />
+      <Button fx:id="buttonLogout" layoutX="198.0" layoutY="415.0" mnemonicParsing="false" text="Logout" />
+   </children>
+</AnchorPane>

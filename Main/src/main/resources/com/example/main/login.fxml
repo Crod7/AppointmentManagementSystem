@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.main.LoginController">
+   <children>
+      <Button fx:id="buttonLogin" layoutX="484.0" layoutY="195.0" mnemonicParsing="false" onAction="#loginButtonClick" text="Login" />
+      <TextField fx:id="textFieldUsername" layoutX="144.0" layoutY="61.0" />
+      <Label fx:id="labelUsername" layoutX="35.0" layoutY="65.0" text="Username" />
+      <Label fx:id="labelPassword" layoutX="35.0" layoutY="103.0" text="Password" />
+      <Label fx:id="labelTimeZoneNonChangeable" layoutX="341.0" layoutY="251.0" text="Time Zone:" />
+      <Label fx:id="labelTimeZoneChangeable" layoutX="421.0" layoutY="251.0" text="America / Chicago" />
+      <PasswordField fx:id="textFieldPassword" layoutX="144.0" layoutY="99.0" />
+      <Label fx:id="labelError" layoutX="48.0" layoutY="178.0" />
+   </children>
+</AnchorPane>
