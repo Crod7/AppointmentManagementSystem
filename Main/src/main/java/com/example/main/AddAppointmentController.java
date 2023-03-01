@@ -110,6 +110,13 @@ public class AddAppointmentController implements Initializable{
     @FXML
     private TextField textFieldType;
 
+    /** This variable holds which contact the customer may contact for information about their appointment.
+     */
+    private String contact_id;
+    /** This variable holds which customer this appointment will belong to.
+     */
+    private Customer selectedCustomer;
+
     // Manages the table of customers, the user can select which customer this appointment is for ------------------
     @FXML
     private TableColumn<Customer, Integer> customerIdColumn;
@@ -154,8 +161,7 @@ public class AddAppointmentController implements Initializable{
 
     public void selectContact(ActionEvent e){
         try {
-            //String contact_id = "";
-            String contact_id = String.valueOf(menuButtonContactId.getSelectionModel().getSelectedItem()/*.toString()*/);
+            contact_id = String.valueOf(menuButtonContactId.getSelectionModel().getSelectedItem());
             ResultSet rs = Query.queryDB("SELECT * FROM contacts");
             while (rs.next()) {
                 if (rs.getString("contact_name").equals(contact_id)){
@@ -167,17 +173,48 @@ public class AddAppointmentController implements Initializable{
         }
     }
     public void saveButtonClick(ActionEvent e) throws IOException {
-        //These dates are converted to UTC so that when other users download the data it will be converted to their local time
+        // This will check to see if all fields hold data, as any empty text fields will throw an error----------------------
+        if (textFieldTitle.getText().equals("")){
+            return;
+        }
+        if (textFieldDescription.getText().equals("")){
+            return;
+        }
+        if (textFieldLocation.getText().equals("")){
+            return;
+        }
+        if (textFieldType.getText().equals("")){
+            return;
+        }
+        if (datePickerStartDate.getValue() == null || choiceBoxStartTimeHour.getValue() == null || choiceBoxStartTimeMinute.getValue() == null){
+            return;
+        }
+        if (datePickerEndDate.getValue() == null || choiceBoxEndTimeHour.getValue() == null || choiceBoxEndTimeMinute.getValue() == null){
+            return;
+        }
+        /** This variable will hold which customer is selected for the appointment. If no customer is selected, this variable will hold a value of 0 and fail the error handling. Only when a customer is selected will this variable hold a value other than 0 and thus pass the error handling.
+         */
+        int selectedCustomer = selectCustomer(e);
+        if (selectedCustomer == 0){
+            System.out.println("Please select customer");
+            return;
+        }
+        if (contact_id == null ){
+            return;
+        }
+
+
+        //These dates are converted to UTC so that when other users download the data it will be converted to their local time------------------
         LocalDateTime currentLocalTime = LocalDateTime.now();
         String createTime = TimeConversion.ConvertToUtc(currentLocalTime.toLocalDate(), currentLocalTime.getHour(), currentLocalTime.getMinute());
         String startTime = TimeConversion.ConvertToUtc(datePickerStartDate.getValue(), Integer.parseInt(choiceBoxStartTimeHour.getValue()), Integer.parseInt(choiceBoxStartTimeMinute.getValue()));
         String endTime = TimeConversion.ConvertToUtc(datePickerEndDate.getValue(), Integer.parseInt(choiceBoxEndTimeHour.getValue()), Integer.parseInt(choiceBoxEndTimeMinute.getValue()));
 
 
-        //Finally this addToQueryDB method inserts a row into the database
+        //Finally this addToQueryDB method inserts a row into the database----------------------
         ResultSet rs = Query.addToQueryDB(textFieldTitle.getText(), textFieldDescription.getText(), textFieldLocation.getText(), textFieldType.getText(), startTime,
-                endTime, createTime, LoginController.username, createTime, LoginController.username, selectCustomer(e), Appointment.autoUserIdGenerator(), selectedContact);
-        //The list is re-populated and makes sure no duplicates are added to same list
+                endTime, createTime, LoginController.username, createTime/*UpdateTime*/, LoginController.username/*LastUpdatedBy*/, /*selectCustomer(e)*/selectedCustomer, Appointment.autoUserIdGenerator(), selectedContact);
+        //The list is re-populated and makes sure no duplicates are added to same list----------------------
         Appointment.populateList();
         Form.changePageTo(e, "mainMenuViewAll.fxml");
     }
@@ -187,9 +224,9 @@ public class AddAppointmentController implements Initializable{
     }
 
     public int selectCustomer(ActionEvent e) throws IOException {
-        Customer selected = tableViewCustomerTable.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            int result = selected.getCustomerId();
+        selectedCustomer = tableViewCustomerTable.getSelectionModel().getSelectedItem();
+        if (selectedCustomer != null) {
+            int result = selectedCustomer.getCustomerId();
             return result;
         }
         return 0;

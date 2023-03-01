@@ -252,14 +252,10 @@ public class Appointment {
             allAppointments.clear();
             ResultSet rs = Query.queryDB("SELECT * FROM users");
             while (rs.next()) {
-                //System.out.println(rs.getString("user_name"));
-                //System.out.println(LoginController.username);
                 if (rs.getString("user_name").equals(LoginController.username)){
-                    //System.out.println("worked");
                     return rs.getInt("user_id");
                 }
             }
-            //System.out.println("failed");
             return 0;
         }catch (SQLException se){
             return 0;
