@@ -27,14 +27,14 @@ public class Query {
             return rs;
         }
     }
-    public static ResultSet addToQueryDB(String title, String desc, String locate, String type, String startDate, String endDate, String create_date, String created_by, String last_update, String last_updated_by, int customer_id, int user_id, int contact_id){
+    public static ResultSet addToQueryDB(int id, String title, String desc, String locate, String type, String startDate, String endDate, String create_date, String created_by, String last_update, String last_updated_by, int customer_id, int user_id, int contact_id){
         try {
             connection = DriverManager.getConnection(jdbcUrl, userName, password);
             Statement stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             String query = "SELECT * FROM appointments";
             ResultSet rs = stmt.executeQuery(query);
             rs.last();
-            int id = Appointment.generateAppointmentId();
+            //int id = Appointment.generateAppointmentId();
             rs.moveToInsertRow();
             rs.updateInt("Appointment_ID", id);
             rs.updateString("Title", title);

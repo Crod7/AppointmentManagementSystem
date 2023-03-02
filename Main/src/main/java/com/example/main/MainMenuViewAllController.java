@@ -166,10 +166,30 @@ public class MainMenuViewAllController implements Initializable {
     public void addAppointmentButtonClick(ActionEvent e) throws IOException {
         Form.changePageTo(e, "addAppointment.fxml");
     }
-    /** This function is linked to a button, and when the button is pressed will take the user to the ModifyAppointment form.
+    /** This function is linked to a button, and when the button is pressed will take the user to the ModifyAppointment form with all the data passed through it from the selected appointment to be modified.
      */
     public void modifyAppointmentButtonClick(ActionEvent e) throws IOException {
-        Form.changePageTo(e, "modifyAppointment.fxml");
+        /** This will hold the object selected on the main menu and pass the data into the text fields of the modify appointment form.
+         */
+        Appointment selectedAppointment = tableviewMainMenuTable.getSelectionModel().getSelectedItem();
+        if (selectedAppointment != null) {
+            ModifyAppointmentController.appointmentIdData = selectedAppointment.getAppointmentId();
+            ModifyAppointmentController.titleData = selectedAppointment.getTitle();
+            ModifyAppointmentController.descriptionData = selectedAppointment.getDescription();
+            ModifyAppointmentController.locationData = selectedAppointment.getLocation();
+            ModifyAppointmentController.typeData = selectedAppointment.getType();
+            ModifyAppointmentController.createDateData = selectedAppointment.getCreateDate();
+            ModifyAppointmentController.createdByData = selectedAppointment.getCreatedBy();
+            ModifyAppointmentController.startData = selectedAppointment.getStart();
+            ModifyAppointmentController.endData = selectedAppointment.getEnd();
+            ModifyAppointmentController.contactNameData = selectedAppointment.getContactName();
+            ModifyAppointmentController.customerIdData = selectedAppointment.getCustomerId();
+            ModifyAppointmentController.selectedApp = selectedAppointment;
+
+            Form.changePageTo(e, "modifyAppointment.fxml");
+        } else {
+            ErrorMessage.msg(Lang.print("Please")+" "+Lang.print("select")+" "+Lang.print("an")+" "+Lang.print("Appointment")+" "+Lang.print("to")+" "+Lang.print("modify")+".");
+        }
     }
     /** This function is linked to a button, and when the button is pressed will take the user to the ReportsContactSchedule form.
      */

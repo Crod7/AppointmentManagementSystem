@@ -202,4 +202,18 @@ public class Customer {
             return 0;
         }
     }
+    public static int getCustomerId(int id){
+        try{
+            ResultSet rs = Query.queryDB("SELECT * FROM customers");
+            while (rs.next()){
+                if (rs.getInt("customer_id") == id){
+                    return rs.getInt("customer_id") - 1;
+                }
+            }
+            return 0;
+        }catch (SQLException se){
+
+        }
+        return 0;
+    }
 }

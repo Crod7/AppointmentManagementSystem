@@ -156,6 +156,9 @@ public class AddAppointmentController implements Initializable{
         labelType.setText(Lang.print("Type"));
         buttonCancel.setText(Lang.print("Cancel"));
         buttonSave.setText(Lang.print("Save"));
+
+        // This loads up what appointment ID will be assigned to potential appointment----------------------------------
+        textFieldAppointmentId.setText(String.valueOf(Appointment.generateAppointmentId()));
     }
 
 
@@ -219,7 +222,7 @@ public class AddAppointmentController implements Initializable{
 
 
         //Finally this addToQueryDB method inserts a row into the database----------------------
-        ResultSet rs = Query.addToQueryDB(textFieldTitle.getText(), textFieldDescription.getText(), textFieldLocation.getText(), textFieldType.getText(), startTime,
+        ResultSet rs = Query.addToQueryDB(Appointment.generateAppointmentId(), textFieldTitle.getText(), textFieldDescription.getText(), textFieldLocation.getText(), textFieldType.getText(), startTime,
                 endTime, createTime, LoginController.username, createTime/*UpdateTime*/, LoginController.username/*LastUpdatedBy*/, /*selectCustomer(e)*/selectedCustomer, Appointment.autoUserIdGenerator(), selectedContact);
         //The list is re-populated and makes sure no duplicates are added to same list----------------------
         Appointment.populateList();

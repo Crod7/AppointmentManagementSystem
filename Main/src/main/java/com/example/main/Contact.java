@@ -100,6 +100,21 @@ public class Contact {
 
         }
     }
+
+    public static int getContactId(String name){
+        try{
+            ResultSet rs = Query.queryDB("SELECT * FROM contacts");
+            while (rs.next()){
+                if (rs.getString("contact_name").equals(name)){
+                    return rs.getInt("contact_id") - 1;
+                }
+            }
+            return 0;
+        }catch (SQLException se){
+
+        }
+        return 0;
+    }
 }
     /*
     public static Appointment lookUpAppointment(Appointment app){
