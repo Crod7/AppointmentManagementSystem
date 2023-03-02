@@ -175,31 +175,38 @@ public class AddAppointmentController implements Initializable{
     public void saveButtonClick(ActionEvent e) throws IOException {
         // This will check to see if all fields hold data, as any empty text fields will throw an error----------------------
         if (textFieldTitle.getText().equals("")){
+            ErrorMessage.msg(Lang.print("Please")+" "+Lang.print("enter")+" "+Lang.print("a")+" "+Lang.print("Title"));
             return;
         }
         if (textFieldDescription.getText().equals("")){
+            ErrorMessage.msg(Lang.print("Please")+" "+Lang.print("enter")+" "+Lang.print("a")+" "+Lang.print("Description"));
             return;
         }
         if (textFieldLocation.getText().equals("")){
+            ErrorMessage.msg(Lang.print("Please")+" "+Lang.print("enter")+" "+Lang.print("a")+" "+Lang.print("Location"));
             return;
         }
         if (textFieldType.getText().equals("")){
+            ErrorMessage.msg(Lang.print("Please")+" "+Lang.print("enter")+" "+Lang.print("a")+" "+Lang.print("Type"));
             return;
         }
         if (datePickerStartDate.getValue() == null || choiceBoxStartTimeHour.getValue() == null || choiceBoxStartTimeMinute.getValue() == null){
+            ErrorMessage.msg(Lang.print("Please")+" "+Lang.print("select")+" "+Lang.print("a")+" "+Lang.print("Start")+" "+Lang.print("Date"));
             return;
         }
         if (datePickerEndDate.getValue() == null || choiceBoxEndTimeHour.getValue() == null || choiceBoxEndTimeMinute.getValue() == null){
+            ErrorMessage.msg(Lang.print("Please")+" "+Lang.print("select")+" "+Lang.print("a")+" "+Lang.print("End")+" "+Lang.print("Date"));
             return;
         }
         /** This variable will hold which customer is selected for the appointment. If no customer is selected, this variable will hold a value of 0 and fail the error handling. Only when a customer is selected will this variable hold a value other than 0 and thus pass the error handling.
          */
         int selectedCustomer = selectCustomer(e);
         if (selectedCustomer == 0){
-            System.out.println("Please select customer");
+            ErrorMessage.msg(Lang.print("Please")+" "+Lang.print("select")+" "+Lang.print("a")+" "+Lang.print("Customer"));
             return;
         }
         if (contact_id == null ){
+            ErrorMessage.msg(Lang.print("Please")+" "+Lang.print("select")+" "+Lang.print("a")+" "+Lang.print("Contact"));
             return;
         }
 

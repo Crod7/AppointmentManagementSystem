@@ -186,13 +186,15 @@ public class MainMenuViewAllController implements Initializable {
         Appointment selectedAppointment = tableviewMainMenuTable.getSelectionModel().getSelectedItem();
         if (selectedAppointment != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Appointments");
-            alert.setHeaderText("Delete");
-            alert.setContentText("Do you want to delete this Appointment?");
+            alert.setTitle(Lang.print("Appointments"));
+            alert.setHeaderText(Lang.print("Delete"));
+            alert.setContentText(Lang.print("Do")+" "+Lang.print("you")+" "+Lang.print("want")+" "+Lang.print("to")+" "+Lang.print("delete")
+                    +" "+Lang.print("this")+" "+Lang.print("Appointment")+"?");
             if (alert.showAndWait().get() == ButtonType.OK) {
                 Appointment.deleteAppointment(selectedAppointment);
             }
         } else {
+            ErrorMessage.msg(Lang.print("Please")+" "+Lang.print("select")+" "+Lang.print("an")+" "+Lang.print("Appointment")+" "+Lang.print("to")+" "+Lang.print("delete")+".");
         }
     }
 }
