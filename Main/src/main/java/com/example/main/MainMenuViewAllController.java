@@ -1,91 +1,109 @@
 package com.example.main;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainMenuViewAllController implements Initializable {
     /*Manages the variables of the buttons and labels on screen-------------------------------------------------------------------------------------------*/
+    /** This button will take the user to the add appointment page.
+     */
     @FXML
     private Button buttonAddAppointment;
-
+    /** This button will delete a selected appointment. If no appointment is selected, will display an error message instructing the user to make a selection first.
+     */
     @FXML
     private Button buttonDeleteAppointment;
-
+    /** This button will take the user to the login page.
+     */
     @FXML
     private Button buttonLogout;
-
+    /** This button will take the user to the modify appointment page.
+     */
     @FXML
     private Button buttonModifyAppointment;
-
+    /** This button will take the user to the reports page.
+     */
     @FXML
     private Button buttonReports;
-
+    /** This variable holds a radio button, and is used to retrieve data about UI interactions with the button. This button will show all appointments.
+     */
     @FXML
     private RadioButton buttonViewAll;
-
+    /** This variable holds a radio button, and is used to retrieve data about UI interactions with the button. This button will sort appointments by month.
+     */
     @FXML
     private RadioButton buttonViewByMonth;
-
+    /** This variable holds a radio button, and is used to retrieve data about UI interactions with the button. This button will sort appointments by week.
+     */
     @FXML
     private RadioButton buttonViewByWeek;
-
+    /** This variable holds a radio button, and is used to retrieve data about UI interactions with the button. This button will sort appointments by customers.
+     */
     @FXML
     private RadioButton buttonViewCustomers;
-
+    /** This variable holds the date picker button, and is used to retrieve data about UI interactions with the button.
+     */
     @FXML
     private DatePicker datePickerViewByDate;
-
+    /** This variable holds the label for title of the page.
+     */
     @FXML
     private Label labelAppointmentSchedule;
 
     /*Manages what columns go into table------------------------------------------------------------------------------------------------------------------------*/
-    /** This is the JavaFX ID for the main table displayed on screen.
+    /** This variable holds the table view that will represent the appointment data and it's columns on the main page.
      */
     @FXML
     private TableView<Appointment> tableviewMainMenuTable;
+    /** This variable holds the column data for an Appointment Object with Integer data type representing the appointment ID.
+     */
     @FXML
     private TableColumn<Appointment, Integer> appointmentIdColumn;
+    /** This variable holds the column data for an Appointment Object with String data type representing the title of the appointment.
+     */
     @FXML
     private TableColumn<Appointment, String> titleColumn;
+    /** This variable holds the column data for an Appointment Object with String data type describing the appointment.
+     */
     @FXML
     private TableColumn<Appointment, String> descriptionColumn;
+    /** This variable holds the column data for an Appointment Object with String data type representing the location of the appointment.
+     */
     @FXML
     private TableColumn<Appointment, String> locationColumn;
+    /** This variable holds the column data for an Appointment Object with String data type representing the type of the appointment taking place.
+     */
     @FXML
     private TableColumn<Appointment, String> typeColumn;
+    /** This variable holds the column data for an Appointment Object with String data type representing the start time of the appointment.
+     */
     @FXML
     private TableColumn<Appointment, String> startColumn;
+    /** This variable holds the column data for an Appointment Object with String data type representing the end time of the appointment.
+     */
     @FXML
     private TableColumn<Appointment, String> endColumn;
-    @FXML
-    private TableColumn<Appointment, String> createDateColumn;
-    @FXML
-    private TableColumn<Appointment, String> createdByColumn;
-    @FXML
-    private TableColumn<Appointment, String> lastUpdateColumn;
-    @FXML
-    private TableColumn<Appointment, String> lastUpdatedByColumn;
+    /** This variable holds the column data for an Appointment Object with Integer data type representing the customer ID.
+     */
     @FXML
     private TableColumn<Appointment, Integer> customerIdColumn;
+    /** This variable holds the column data for an Appointment Object with Integer data type representing the user ID.
+     */
     @FXML
     private TableColumn<Appointment, Integer> userIdColumn;
+    /** This variable holds the column data for an Appointment Object with Integer ata type representing the contact ID.
+     */
     @FXML
     private TableColumn<Appointment, Integer> contactIdColumn;
 
+    /** This variable holds the toggle group for the radio buttons on the form.
+     */
     @FXML
     private ToggleGroup viewGroup;
 
@@ -104,10 +122,6 @@ public class MainMenuViewAllController implements Initializable {
         typeColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("type"));
         startColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("start"));
         endColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("end"));
-        //createDateColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("createDate"));
-        //createdByColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("createdBy"));
-        //lastUpdateColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("lastUpdate"));
-        //lastUpdatedByColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("lastUpdatedBy"));
         customerIdColumn.setCellValueFactory(new PropertyValueFactory<Appointment ,Integer>("customerId"));
         userIdColumn.setCellValueFactory(new PropertyValueFactory<Appointment ,Integer>("userId"));
         contactIdColumn.setCellValueFactory(new PropertyValueFactory<Appointment ,Integer>("contactName"));
@@ -120,10 +134,6 @@ public class MainMenuViewAllController implements Initializable {
         typeColumn.setText(Lang.print("Type"));
         startColumn.setText(Lang.print("Start"));
         endColumn.setText(Lang.print("End"));
-        //createDateColumn.setText(Lang.print("Create")+" "+Lang.print("Date"));
-        //createdByColumn.setText(Lang.print("Created")+" "+Lang.print("By"));
-        //lastUpdateColumn.setText(Lang.print("Last")+" "+Lang.print("Update"));
-        //lastUpdatedByColumn.setText(Lang.print("Last")+" "+Lang.print("Updated")+" "+Lang.print("By"));
         customerIdColumn.setText(Lang.print("Customer")+" "+Lang.print("ID"));
         userIdColumn.setText(Lang.print("User")+" "+Lang.print("ID"));
         contactIdColumn.setText(Lang.print("Contact")+" "+Lang.print("ID"));
@@ -201,7 +211,8 @@ public class MainMenuViewAllController implements Initializable {
     public void logoutButtonClick(ActionEvent e) throws IOException {
         Form.changePageTo(e, "login.fxml");
     }
-    // Controls the delete option
+    /** This function is linked to a button, and when the button is will delete the currently selected appointment.
+     */
     public void deleteAppointmentButtonClick(ActionEvent e) throws IOException {
         Appointment selectedAppointment = tableviewMainMenuTable.getSelectionModel().getSelectedItem();
         if (selectedAppointment != null) {
