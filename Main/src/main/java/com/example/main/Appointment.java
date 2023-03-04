@@ -2,16 +2,19 @@ package com.example.main;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.ComboBox;
 
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 
 import static com.example.main.JDBC.connection;
 
 public class Appointment {
     private static ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
+    private static ObservableList<Appointment> allAppointmentsFiltered = FXCollections.observableArrayList();
     private int appointmentId;
     private String title;
     private String description;
@@ -160,6 +163,9 @@ public class Appointment {
     public static ObservableList<Appointment> getAllAppointments(){
         return allAppointments;
     }
+    public static ObservableList<Appointment> getAllAppointmentsFiltered(){
+        return allAppointmentsFiltered;
+    }
     public static void addAppointment(Appointment app){
         allAppointments.add(app);
     }
@@ -169,25 +175,6 @@ public class Appointment {
         Appointment.populateList();
         return true;
     }
-    public static void updateAppointment(Appointment selectedAppointment){
-        for (Appointment x : allAppointments){
-            if (x.getAppointmentId() == selectedAppointment.getAppointmentId()){
-
-            }
-        }
-    }
-    /*
-    public static Appointment lookUpAppointment(Appointment app){
-        ObservableList<Appointment> allAppointments = getAllAppointments();
-        for (int i = 0; i < allAppointments.size(); i++){
-            Appointment x = allAppointments.get(i);
-            if (x.getAppointmentId() = app){
-                return x;
-            }
-        }
-        allAppointments.add(app);
-    }
-     */
     public static void populateList(){
         try {
             allAppointments.clear();
@@ -239,7 +226,6 @@ public class Appointment {
                     current_max = rs.getInt("appointment_id");
                 }
             }
-            //String resultString = String.valueOf(current_max);
             return current_max + 1;
         }catch (SQLException se){
             return 0;
@@ -259,6 +245,18 @@ public class Appointment {
             return 0;
         }catch (SQLException se){
             return 0;
+        }
+    }
+
+    public static void filterByMonth(String obj){
+        allAppointmentsFiltered.clear();
+        for (Appointment x : getAllAppointments()){
+            //This takes the month of the given date the appointment will take place
+            String y = x.getStart().substring(5,7);
+            //This compares the month with the selected month the user is filtering for
+            if (y.equals(obj.substring(0,2))) {
+                allAppointmentsFiltered.add(x);
+            }
         }
     }
 }
