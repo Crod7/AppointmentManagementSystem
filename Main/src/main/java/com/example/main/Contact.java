@@ -116,17 +116,4 @@ public class Contact {
         return 0;
     }
 }
-    /*
-    public static Appointment lookUpAppointment(Appointment app){
-        ObservableList<Appointment> allAppointments = getAllAppointments();
-        for (int i = 0; i < allAppointments.size(); i++){
-            Appointment x = allAppointments.get(i);
-            if (x.getAppointmentId() = app){
-                return x;
-            }
-        }
-        allAppointments.add(app);
-    }
-
-     */
 

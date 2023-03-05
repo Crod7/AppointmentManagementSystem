@@ -28,7 +28,7 @@
       </TableView>
       <Button fx:id="buttonReports" layoutX="858.0" layoutY="570.0" mnemonicParsing="false" onAction="#reportsButtonClick" text="Reports" />
       <Button fx:id="buttonLogout" layoutX="858.0" layoutY="614.0" mnemonicParsing="false" onAction="#logoutButtonClick" text="Log out" />
-      <Button fx:id="buttonAddCustomer" layoutX="73.0" layoutY="526.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="127.0" text="Add Customer" />
+      <Button fx:id="buttonAddCustomer" layoutX="73.0" layoutY="526.0" mnemonicParsing="false" onAction="#addCustomerButtonClick" prefHeight="25.0" prefWidth="127.0" text="Add Customer" />
       <Button fx:id="buttonModifyCustomer" layoutX="73.0" layoutY="570.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="127.0" text="Modify Customer" />
       <Button fx:id="buttonDeleteCustomer" layoutX="73.0" layoutY="614.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="127.0" text="Delete Customer" />
    </children>
