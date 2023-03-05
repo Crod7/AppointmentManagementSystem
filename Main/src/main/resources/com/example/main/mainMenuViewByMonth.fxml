@@ -18,7 +18,7 @@
                 <ToggleGroup fx:id="viewGroup" />
             </toggleGroup>
         </RadioButton>
-        <RadioButton fx:id="buttonViewAll" layoutX="333.0" layoutY="35.0" mnemonicParsing="false" onAction="#viewAllButtonClick" selected="true" text="View All" toggleGroup="$viewGroup" />
+        <RadioButton fx:id="buttonViewAll" layoutX="333.0" layoutY="35.0" mnemonicParsing="false" onAction="#viewAllButtonClick" text="View All" toggleGroup="$viewGroup" />
         <RadioButton fx:id="buttonViewByWeek" layoutX="333.0" layoutY="60.0" mnemonicParsing="false" onAction="#viewByWeekButtonClick" text="View by Week" toggleGroup="$viewGroup" />
         <RadioButton fx:id="buttonViewByMonth" layoutX="333.0" layoutY="85.0" mnemonicParsing="false" selected="true" text="View by Month" toggleGroup="$viewGroup" />
         <TableView fx:id="tableviewMainMenuTable" layoutX="14.0" layoutY="130.0" prefHeight="365.0" prefWidth="948.0">

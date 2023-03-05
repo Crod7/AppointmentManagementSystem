@@ -233,6 +233,8 @@ public class MainMenuViewByMonthController implements Initializable {
             ErrorMessage.msg(Lang.print("Please")+" "+Lang.print("select")+" "+Lang.print("an")+" "+Lang.print("Appointment")+" "+Lang.print("to")+" "+Lang.print("delete")+".");
         }
     }
+    /** This function will read what month the user wants to use to filter the table view, and it will return the new table on the screen.
+     */
     public void monthSelect(ActionEvent e) throws IOException {
         Appointment.filterByMonth(String.valueOf(menuButtonMonth.getSelectionModel().getSelectedItem()));
         appointmentIdColumn.setCellValueFactory(new PropertyValueFactory<Appointment ,Integer>("appointmentId"));

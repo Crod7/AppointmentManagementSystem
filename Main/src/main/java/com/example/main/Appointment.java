@@ -252,10 +252,48 @@ public class Appointment {
         allAppointmentsFiltered.clear();
         for (Appointment x : getAllAppointments()){
             //This takes the month of the given date the appointment will take place
-            String y = x.getStart().substring(5,7);
+            String strMonth = x.getStart().substring(5,7);
             //This compares the month with the selected month the user is filtering for
-            if (y.equals(obj.substring(0,2))) {
+            if (strMonth.equals(obj.substring(0,2))) {
                 allAppointmentsFiltered.add(x);
+            }
+        }
+    }
+    public static void filterByWeek(String month, String week){
+        allAppointmentsFiltered.clear();
+        for (Appointment x : getAllAppointments()){
+            //This takes the month of the given date the appointment will take place
+            String strMonth = x.getStart().substring(5,7);
+            //This takes an int of the day to be used later to determine the week
+            int intDay = Integer.parseInt(x.getStart().substring(8,10));
+            //This compares the month with the selected month the user is filtering for
+            if (strMonth.equals(month.substring(0,2))) {
+                //Using the intDay we can find what # of week it belongs to in the month and use it to return it in a filtered list
+                if (week.equals("01")) {
+                    if (((intDay) > 0) && (intDay) <= 7) {
+                        allAppointmentsFiltered.add(x);
+                    }
+                }
+                if (week.equals("02")) {
+                    if (((intDay) > 7) && (intDay) <= 14) {
+                        allAppointmentsFiltered.add(x);
+                    }
+                }
+                if (week.equals("03")) {
+                    if (((intDay) > 14) && (intDay) <= 21) {
+                        allAppointmentsFiltered.add(x);
+                    }
+                }
+                if (week.equals("04")) {
+                    if (((intDay) > 21) && (intDay) <= 28) {
+                        allAppointmentsFiltered.add(x);
+                    }
+                }
+                if (week.equals("05")) {
+                    if (intDay > 28) {
+                        allAppointmentsFiltered.add(x);
+                    }
+                }
             }
         }
     }
