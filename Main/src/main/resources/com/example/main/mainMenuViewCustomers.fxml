@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
@@ -11,34 +10,24 @@
 
 <AnchorPane prefHeight="679.0" prefWidth="964.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.main.MainMenuViewCustomersController">
    <children>
-      <Label fx:id="labelAppointmentSchedule" layoutX="23.0" layoutY="35.0" text="Appointment Schedule" />
+      <Label fx:id="labelAppointmentSchedule" layoutX="23.0" layoutY="35.0" text="Customers" />
       <RadioButton fx:id="buttonViewCustomers" layoutX="197.0" layoutY="35.0" mnemonicParsing="false" selected="true" text="View Customers">
          <toggleGroup>
             <ToggleGroup fx:id="viewGroup" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="buttonViewAll" layoutX="333.0" layoutY="35.0" mnemonicParsing="false" text="View All" toggleGroup="$viewGroup" />
-      <RadioButton fx:id="buttonViewByWeek" layoutX="333.0" layoutY="60.0" mnemonicParsing="false" text="View by Week" toggleGroup="$viewGroup" />
-      <RadioButton fx:id="buttonViewByMonth" layoutX="333.0" layoutY="85.0" mnemonicParsing="false" text="View by Month" toggleGroup="$viewGroup" />
+      <RadioButton fx:id="buttonViewAll" layoutX="333.0" layoutY="35.0" mnemonicParsing="false" onAction="#viewAllButtonClick" text="View Appointments" toggleGroup="$viewGroup" />
       <TableView fx:id="tableviewMainMenuTable" layoutX="14.0" layoutY="130.0" prefHeight="365.0" prefWidth="939.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
-            <TableColumn prefWidth="75.0" text="C2" />
-            <TableColumn prefWidth="75.0" text="C2" />
-            <TableColumn prefWidth="75.0" text="C2" />
-            <TableColumn prefWidth="75.0" text="C2" />
-            <TableColumn prefWidth="75.0" text="C2" />
-            <TableColumn prefWidth="75.0" text="C2" />
-            <TableColumn prefWidth="75.0" text="C2" />
-            <TableColumn prefWidth="75.0" text="C2" />
-            <TableColumn prefWidth="76.0" text="C2" />
-            <TableColumn prefWidth="111.0" text="C2" />
+          <TableColumn fx:id="customerIdColumn" prefWidth="75.0" text="Customer ID" />
+          <TableColumn fx:id="customerNameColumn" prefWidth="116.0" text="Cusotmer Name" />
+            <TableColumn fx:id="addressColumn" prefWidth="510.0" text="Address" />
+            <TableColumn fx:id="postalColumn" minWidth="0.0" prefWidth="81.0" text="Postal Code" />
+            <TableColumn fx:id="phoneColumn" prefWidth="156.0" text="Phone Number" />
         </columns>
       </TableView>
-      <DatePicker fx:id="datePickerViewByDate" layoutX="741.0" layoutY="31.0" />
-      <Button fx:id="buttonReports" layoutX="858.0" layoutY="570.0" mnemonicParsing="false" text="Reports" />
-      <Button fx:id="buttonLogout" layoutX="858.0" layoutY="614.0" mnemonicParsing="false" text="Log out" />
+      <Button fx:id="buttonReports" layoutX="858.0" layoutY="570.0" mnemonicParsing="false" onAction="#reportsButtonClick" text="Reports" />
+      <Button fx:id="buttonLogout" layoutX="858.0" layoutY="614.0" mnemonicParsing="false" onAction="#logoutButtonClick" text="Log out" />
       <Button fx:id="buttonAddCustomer" layoutX="73.0" layoutY="526.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="127.0" text="Add Customer" />
       <Button fx:id="buttonModifyCustomer" layoutX="73.0" layoutY="570.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="127.0" text="Modify Customer" />
       <Button fx:id="buttonDeleteCustomer" layoutX="73.0" layoutY="614.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="127.0" text="Delete Customer" />

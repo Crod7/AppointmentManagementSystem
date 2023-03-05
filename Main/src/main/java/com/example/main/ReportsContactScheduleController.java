@@ -1,5 +1,6 @@
 package com.example.main;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -12,6 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -61,5 +63,11 @@ public class ReportsContactScheduleController implements Initializable {
         radioButtonSortByType.setText(Lang.print("Total")+" "+Lang.print("Customers")+" "+Lang.print("by")+" "+Lang.print("Type"));
         //This label changes depending on the Form selected by the radio buttons
         labelSortedBy.setText(Lang.print("Contact"));
+    }
+    public void logoutButtonClick(ActionEvent e) throws IOException {
+        Form.changePageTo(e, "login.fxml");
+    }
+    public void cancelButtonClick(ActionEvent e) throws IOException {
+        Form.changePageTo(e, "mainMenuViewAll.fxml");
     }
 }
