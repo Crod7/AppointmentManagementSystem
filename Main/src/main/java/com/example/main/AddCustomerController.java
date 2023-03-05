@@ -108,7 +108,9 @@ public class AddCustomerController implements Initializable {
                     selectedCountry =  rs.getInt("country_id");
                 }
             }
-            System.out.println(selectedCountry);
+            FirstLevelDivisions.populateList();
+            FirstLevelDivisions.filteredList(selectedCountry);
+            menuButtonDivisions.setItems(FirstLevelDivisions.getAllDivisionsFiltered());
         } catch (SQLException se){
 
         }
