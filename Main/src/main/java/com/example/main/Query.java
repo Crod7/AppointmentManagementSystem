@@ -57,6 +57,32 @@ public class Query {
             return rs;
         }
     }
+    public static ResultSet addCustomerToQueryDB(int id, String name, String address, String postalCode, String phone, String create_date, String created_by, String last_update, String last_updated_by, int division_id){
+        try {
+            connection = DriverManager.getConnection(jdbcUrl, userName, password);
+            Statement stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            String query = "SELECT * FROM customers";
+            ResultSet rs = stmt.executeQuery(query);
+            rs.last();
+            //int id = Appointment.generateAppointmentId();
+            rs.moveToInsertRow();
+            rs.updateInt("Customer_ID", id);
+            rs.updateString("Customer_Name", name);
+            rs.updateString("Address", address);
+            rs.updateString("Postal_Code", postalCode);
+            rs.updateString("Phone", phone);
+            rs.updateTimestamp("Create_Date", Timestamp.valueOf(create_date));
+            rs.updateString("Created_By", created_by);
+            rs.updateTimestamp("Last_Update", Timestamp.valueOf(last_update));
+            rs.updateString("Last_Updated_By", last_updated_by);
+            rs.updateInt("Division_ID", division_id);
+            rs.insertRow();
+            return rs;
+        } catch (SQLException se){
+            ResultSet rs = null;
+            return rs;
+        }
+    }
 
 
     public static ResultSet deleteQueryDB(String queryCode){

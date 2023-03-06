@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class AddCustomerController implements Initializable {
@@ -45,9 +46,6 @@ public class AddCustomerController implements Initializable {
     private Label labelPostalCode;
 
     @FXML
-    private Label labelSubHeader;
-
-    @FXML
     private ComboBox menuButtonCountries;
 
     @FXML
@@ -71,6 +69,8 @@ public class AddCustomerController implements Initializable {
     public String country_id;
     private int selectedCountry;
 
+    private int selectedDivision;
+
     public void initialize(URL url, ResourceBundle resourceBundle){
         // This loads up the options for the choice box---------------------------------------------------------
         Countries.populateList();
@@ -86,7 +86,6 @@ public class AddCustomerController implements Initializable {
         // Changes the language of each column and label to default system language--------------------------------------------------------------------
         labelCustomerId.setText(Lang.print("Customer")+" "+Lang.print("ID"));
         labelHeader.setText(Lang.print("Add")+" "+Lang.print("Customer"));
-        labelSubHeader.setText(Lang.print("Linked")+" "+Lang.print("Appointments"));
         labelCustomerName.setText(Lang.print("Customer")+" "+Lang.print("Name"));
         labelAddress.setText(Lang.print("Address"));
         labelPostalCode.setText(Lang.print("Postal")+" "+Lang.print("Code"));
@@ -114,6 +113,56 @@ public class AddCustomerController implements Initializable {
         } catch (SQLException se){
 
         }
+    }
+    public void cancelButtonClick(ActionEvent e) throws IOException {
+        Form.changePageTo(e, "mainMenuViewCustomers.fxml");
+    }
+    public void saveButtonClick(ActionEvent e) throws IOException {
+        // This will check to see if all fields hold data, as any empty text fields will throw an error----------------------
+        if (textFieldCustomerName.getText().equals("")){
+            ErrorMessage.msg(Lang.print("Please")+" "+Lang.print("enter")+" "+Lang.print("a")+" "+Lang.print("Name"));
+            return;
+        }
+        if (textFieldAddress.getText().equals("")){
+            ErrorMessage.msg(Lang.print("Please")+" "+Lang.print("enter")+" "+Lang.print("an")+" "+Lang.print("Address"));
+            return;
+        }
+        if (textFieldPostalCode.getText().equals("")){
+            ErrorMessage.msg(Lang.print("Please")+" "+Lang.print("enter")+" "+Lang.print("a")+" "+Lang.print("Postal")+" "+Lang.print("Code"));
+            return;
+        }
+        if (textFieldPhoneNumber.getText().equals("")){
+            ErrorMessage.msg(Lang.print("Please")+" "+Lang.print("enter")+" "+Lang.print("a")+" "+Lang.print("Phone")+" "+Lang.print("Number"));
+            return;
+        }
+        if (menuButtonCountries.getValue() == null){
+            ErrorMessage.msg(Lang.print("Please")+" "+Lang.print("select")+" "+Lang.print("a")+" "+Lang.print("Country"));
+            return;
+        }
+        if (menuButtonDivisions.getValue() == null){
+            ErrorMessage.msg(Lang.print("Please")+" "+Lang.print("select")+" "+Lang.print("a")+" "+Lang.print("Division"));
+            return;
+        }
+        //These dates are converted to UTC so that when other users download the data it will be converted to their local time------------------
+        LocalDateTime currentLocalTime = LocalDateTime.now();
+        String createTime = TimeConversion.ConvertToUtc(currentLocalTime.toLocalDate(), currentLocalTime.getHour(), currentLocalTime.getMinute());
+        //Finally this addToQueryDB method inserts a row into the database----------------------
+        ResultSet rs = Query.addCustomerToQueryDB(Customer.generateCustomerId(), textFieldCustomerName.getText(), textFieldAddress.getText(), textFieldPostalCode.getText(), textFieldPhoneNumber.getText(),
+                createTime, LoginController.username, createTime, LoginController.username, selectDivision(String.valueOf(menuButtonDivisions.getValue())));
+        //The list is re-populated and makes sure no duplicates are added to same list----------------------
+        Customer.populateList();
+        Form.changePageTo(e, "mainMenuViewCustomers.fxml");
+
+    }
+
+    public int selectDivision(String division) throws IOException {
+        int result = 0;
+        for ( FirstLevelDivisions x: FirstLevelDivisions.getAllDivisions()){
+            if (division.equals(x.getDivision())){
+                result = x.getDivisionId();
+            }
+        }
+        return result;
     }
 }
 
