@@ -126,12 +126,9 @@ public class Customer {
         Appointment.populateList();
         return true;
     }
-    public static void updateAppointment(Appointment selectedAppointment){
-        for (Customer x : allCustomers){
-            if (x.getCustomerId() == selectedAppointment.getAppointmentId()){
-
-            }
-        }
+    public static boolean modifyCustomer(){
+        Appointment.populateList();
+        return true;
     }
     public static void populateList(){
         try {

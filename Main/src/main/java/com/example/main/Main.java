@@ -12,7 +12,7 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("login.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 300);
-        stage.setTitle("Appointment Management System");
+        stage.setTitle(Lang.print("Appointment")+" "+Lang.print("Management")+" "+Lang.print("System"));
         stage.setScene(scene);
         stage.show();
     }

@@ -108,34 +108,27 @@ public class MainMenuViewCustomersController implements Initializable {
     public void addCustomerButtonClick(ActionEvent e) throws IOException {
         Form.changePageTo(e, "addCustomer.fxml");
     }
-    /** This function is linked to a button, and when the button is pressed will take the user to the ModifyAppointment form with all the data passed through it from the selected appointment to be modified.
+    /** This function is linked to a button, and when the button is pressed will take the user to the ModifyCustomer form with all the data passed through it from the selected Customer to be modified.
      */
-    /*
     public void modifyCustomerButtonClick(ActionEvent e) throws IOException {
         /** This will hold the object selected on the main menu and pass the data into the text fields of the modify appointment form.
          */
-            /*
-        Appointment selectedAppointment = tableviewMainMenuTable.getSelectionModel().getSelectedItem();
-        if (selectedAppointment != null) {
-            ModifyAppointmentController.appointmentIdData = selectedAppointment.getAppointmentId();
-            ModifyAppointmentController.titleData = selectedAppointment.getTitle();
-            ModifyAppointmentController.descriptionData = selectedAppointment.getDescription();
-            ModifyAppointmentController.locationData = selectedAppointment.getLocation();
-            ModifyAppointmentController.typeData = selectedAppointment.getType();
-            ModifyAppointmentController.createDateData = selectedAppointment.getCreateDate();
-            ModifyAppointmentController.createdByData = selectedAppointment.getCreatedBy();
-            ModifyAppointmentController.startData = selectedAppointment.getStart();
-            ModifyAppointmentController.endData = selectedAppointment.getEnd();
-            ModifyAppointmentController.contactNameData = selectedAppointment.getContactName();
-            ModifyAppointmentController.customerIdData = selectedAppointment.getCustomerId();
-            ModifyAppointmentController.selectedApp = selectedAppointment;
-
+        Customer selectedCustomer = tableviewMainMenuTable.getSelectionModel().getSelectedItem();
+        if (selectedCustomer != null) {
+            ModifyCustomerController.customerIdData = selectedCustomer.getCustomerId();
+            ModifyCustomerController.customerNameData = selectedCustomer.getCustomerName();
+            ModifyCustomerController.addressData = selectedCustomer.getAddress();
+            ModifyCustomerController.postalCodeData = selectedCustomer.getPostalCode();
+            ModifyCustomerController.phoneData = selectedCustomer.getPhone();
+            ModifyCustomerController.createDateData = selectedCustomer.getCreateDate();
+            ModifyCustomerController.createdByData = selectedCustomer.getCreatedBy();
+            ModifyCustomerController.divisionIdData = selectedCustomer.getDivisionId();
+            ModifyCustomerController.selectedCus = selectedCustomer;
             Form.changePageTo(e, "modifyCustomer.fxml");
         } else {
-            ErrorMessage.msg(Lang.print("Please")+" "+Lang.print("select")+" "+Lang.print("an")+" "+Lang.print("Appointment")+" "+Lang.print("to")+" "+Lang.print("modify")+".");
+            ErrorMessage.msg(Lang.print("Please")+" "+Lang.print("select")+" "+Lang.print("a")+" "+Lang.print("Customer")+" "+Lang.print("to")+" "+Lang.print("modify")+".");
         }
     }
-    */
     /** This function is linked to a button, and when the button is pressed will take the user to the ReportsContactSchedule form.
      */
     public void reportsButtonClick(ActionEvent e) throws IOException {

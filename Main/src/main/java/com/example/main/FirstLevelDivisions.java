@@ -81,4 +81,40 @@ public class FirstLevelDivisions {
             }
         }
     }
+    public static int getCountryId(int id){
+        try{
+            ResultSet rs = Query.queryDB("SELECT * FROM first_level_divisions");
+            while (rs.next()){
+                if (rs.getInt("division_id") == (id)){
+                    return rs.getInt("country_id")-1;
+                }
+            }
+            return 0;
+        }catch (SQLException se){
+
+        }
+        return 0;
+    }
+
+    public static int getDivisionId(int id){
+        int country_id = 0;
+        try{
+            ResultSet rs = Query.queryDB("SELECT * FROM first_level_divisions");
+            while (rs.next()){
+                if (rs.getInt("division_id") == (id)){
+                    country_id = rs.getInt("country_id");
+                }
+            }
+            ResultSet gs = Query.queryDB("SELECT * FROM countries");
+            while (gs.next()){
+                if (gs.getInt("country_id") == country_id){
+                    return gs.getInt("country_id") - 1;
+                }
+            }
+            return 0;
+        }catch (SQLException se){
+
+        }
+        return 0;
+    }
 }

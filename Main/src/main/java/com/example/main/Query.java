@@ -83,6 +83,33 @@ public class Query {
             return rs;
         }
     }
+    public static void modifyCustomerToQueryDB(int id, String name, String address, String postal, String phone, String createDate, String createdBy, String update, String updatedBy, int divisionId){
+        try {
+            connection = DriverManager.getConnection(jdbcUrl, userName, password);
+            Statement stmt = connection.createStatement();
+            String sql ="UPDATE customers SET customer_name = '" + name + "' WHERE customer_id = " + (id);
+            int rowsAffected = stmt.executeUpdate(sql);
+            sql ="UPDATE customers SET address = '" + address + "' WHERE customer_id = " + (id);
+            rowsAffected = stmt.executeUpdate(sql);
+            sql ="UPDATE customers SET postal_code = '" + postal + "' WHERE customer_id = " + (id);
+            rowsAffected = stmt.executeUpdate(sql);
+            sql ="UPDATE customers SET phone = '" + phone + "' WHERE customer_id = " + (id);
+            rowsAffected = stmt.executeUpdate(sql);
+            sql ="UPDATE customers SET create_date = '" + createDate + "' WHERE customer_id = " + (id);
+            rowsAffected = stmt.executeUpdate(sql);
+            sql ="UPDATE customers SET created_by = '" + createdBy + "' WHERE customer_id = " + (id);
+            rowsAffected = stmt.executeUpdate(sql);
+            sql ="UPDATE customers SET last_update = '" + update + "' WHERE customer_id = " + (id);
+            rowsAffected = stmt.executeUpdate(sql);
+            sql ="UPDATE customers SET last_updated_by = '" + updatedBy + "' WHERE customer_id = " + (id);
+            rowsAffected = stmt.executeUpdate(sql);
+            sql ="UPDATE customers SET division_id = '" + divisionId + "' WHERE customer_id = " + (id);
+            rowsAffected = stmt.executeUpdate(sql);
+
+
+        } catch (SQLException se){
+        }
+    }
 
 
     public static ResultSet deleteQueryDB(String queryCode){
