@@ -43,8 +43,16 @@ public class MainMenuViewCustomersController implements Initializable {
      */
     @FXML
     private Label labelAppointmentSchedule;
+    @FXML
+    private Label labelSubHeader;
 
     /*Manages what columns go into table------------------------------------------------------------------------------------------------------------------------*/
+    @FXML
+    private TableView<Appointment> tableviewAppointmentTable;
+    @FXML
+    private TableColumn<Appointment, Integer> appointmentIdColumn;
+    @FXML
+    private TableColumn<Appointment, String> appointmentStartColumn;
     @FXML
     private TableColumn<Customer, String> addressColumn;
     @FXML
@@ -141,21 +149,26 @@ public class MainMenuViewCustomersController implements Initializable {
     }
     /** This function is linked to a button, and when the button is will delete the currently selected appointment.
      */
-    /*
-    public void deleteAppointmentButtonClick(ActionEvent e) throws IOException {
-        Appointment selectedAppointment = tableviewMainMenuTable.getSelectionModel().getSelectedItem();
-        if (selectedAppointment != null) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle(Lang.print("Customers"));
-            alert.setHeaderText(Lang.print("Delete"));
-            alert.setContentText(Lang.print("Do")+" "+Lang.print("you")+" "+Lang.print("want")+" "+Lang.print("to")+" "+Lang.print("delete")
-                    +" "+Lang.print("this")+" "+Lang.print("Customer")+"?");
-            if (alert.showAndWait().get() == ButtonType.OK) {
-                Appointment.deleteAppointment(selectedAppointment);
+    public void deleteCustomerButtonClick(ActionEvent e) throws IOException {
+        Customer selectedCustomer = tableviewMainMenuTable.getSelectionModel().getSelectedItem();
+        //This will check to make sure that the customer has no appointments linked to them, if they have linked appointments, it will not allow their deletion
+        if (Appointment.checkIfCustomerIsEmpty(selectedCustomer) == 0){
+            if (selectedCustomer != null) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle(Lang.print("Customers"));
+                alert.setHeaderText(Lang.print("Delete"));
+                alert.setContentText(Lang.print("Do")+" "+Lang.print("you")+" "+Lang.print("want")+" "+Lang.print("to")+" "+Lang.print("delete")
+                        +" "+Lang.print("this")+" "+Lang.print("Customer")+"?");
+                if (alert.showAndWait().get() == ButtonType.OK) {
+                    Customer.deleteCustomer(selectedCustomer);
+                }
+            } else {
+                ErrorMessage.msg(Lang.print("Please")+" "+Lang.print("select")+" "+Lang.print("a")+" "+Lang.print("Customer")+" "+Lang.print("to")+" "+Lang.print("delete")+".");
             }
         } else {
-            ErrorMessage.msg(Lang.print("Please")+" "+Lang.print("select")+" "+Lang.print("a")+" "+Lang.print("Customer")+" "+Lang.print("to")+" "+Lang.print("delete")+".");
+            ErrorMessage.msg2(Lang.print("Please")+" "+Lang.print("make")+" "+Lang.print("sure")+" "+Lang.print("all")+" "+
+                    Lang.print("associated")+" "+Lang.print("appointments")+" "+Lang.print("linked")+" "+Lang.print("to")+" "+
+                    Lang.print("customer")+" "+Lang.print("are")+" "+Lang.print("deleted")+" "+Lang.print("first")+".");
         }
     }
-    */
 }

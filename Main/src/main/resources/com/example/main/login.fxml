@@ -12,7 +12,7 @@
       <TextField fx:id="textFieldUsername" layoutX="144.0" layoutY="61.0" />
       <Label fx:id="labelUsername" layoutX="35.0" layoutY="65.0" text="Username" />
       <Label fx:id="labelPassword" layoutX="35.0" layoutY="103.0" text="Password" />
-      <Label fx:id="labelTimeZoneNonChangeable" layoutX="341.0" layoutY="251.0" text="Time Zone:" />
+      <Label fx:id="labelTimeZoneNonChangeable" layoutX="321.0" layoutY="251.0" text="Time Zone:" />
       <Label fx:id="labelTimeZoneChangeable" layoutX="421.0" layoutY="251.0" text="America / Chicago" />
       <PasswordField fx:id="textFieldPassword" layoutX="144.0" layoutY="99.0" />
       <Label fx:id="labelError" layoutX="48.0" layoutY="178.0" />

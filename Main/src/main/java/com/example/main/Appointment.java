@@ -297,5 +297,25 @@ public class Appointment {
             }
         }
     }
+    public static void filterByCustomer(Customer obj){
+        allAppointmentsFiltered.clear();
+        for (Appointment x : getAllAppointments()){
+            //This takes the month of the given date the appointment will take place
+            int customerId = obj.getCustomerId();
+            //This compares the month with the selected month the user is filtering for
+            if (x.customerId == customerId) {
+                allAppointmentsFiltered.add(x);
+            }
+        }
+    }
+    public static int checkIfCustomerIsEmpty(Customer obj){
+        int result = 0;
+        for (Appointment x : getAllAppointments()){
+            if (obj.getCustomerId() == x.getCustomerId()){
+                result = result + 1;
+            }
+        }
+        return result;
+    }
 }
 

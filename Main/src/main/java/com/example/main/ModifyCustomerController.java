@@ -16,10 +16,20 @@ import java.util.ResourceBundle;
 public class ModifyCustomerController implements Initializable {
 
     @FXML
+    private TableView<Appointment> tableViewAppointment;
+    @FXML
+    private TableColumn<Appointment, Integer> appointmentIdColumn;
+
+    @FXML
+    private TableColumn<Appointment, String> appointmentStartColumn;
+
+    @FXML
     private Button buttonCancel;
 
     @FXML
     private Button buttonSave;
+    @FXML
+    private Button buttonDelete;
 
     @FXML
     private Label labelAddress;
@@ -44,7 +54,8 @@ public class ModifyCustomerController implements Initializable {
 
     @FXML
     private Label labelPostalCode;
-
+    @FXML
+    private Label labelSubHeader;
     @FXML
     private ComboBox menuButtonCountries;
 
@@ -68,6 +79,7 @@ public class ModifyCustomerController implements Initializable {
 
     public String country_id;
     private int selectedCountry;
+    Customer selectedCustomerToUpdateAppointmentList;
 
     //All data preloaded from the view customers page-------------
     public static int customerIdData;
@@ -103,8 +115,12 @@ public class ModifyCustomerController implements Initializable {
         labelPhoneNumber.setText(Lang.print("Phone") + " " + Lang.print("Number"));
         labelCountries.setText(Lang.print("Countries"));
         labelDivisions.setText(Lang.print("Divisions"));
+        labelSubHeader.setText(Lang.print("Linked")+" "+Lang.print("Appointments"));
+        buttonDelete.setText(Lang.print("Delete"));
         buttonCancel.setText(Lang.print("Cancel"));
         buttonSave.setText(Lang.print("Save"));
+        appointmentIdColumn.setText(Lang.print("Appointment")+" "+Lang.print("ID"));
+        appointmentStartColumn.setText(Lang.print("Appointment")+" "+Lang.print("Start")+" "+Lang.print("Time"));
 
         // This loads up selected customer data from previous page----------------------------------
         textFieldCustomerId.setText(String.valueOf(customerIdData));
@@ -112,6 +128,12 @@ public class ModifyCustomerController implements Initializable {
         textFieldAddress.setText(addressData);
         textFieldPostalCode.setText(postalCodeData);
         textFieldPhoneNumber.setText(phoneData);
+
+        // This loads up apartments associated with the customer the user is modifying-----------
+        Appointment.filterByCustomer(selectedCus);
+        appointmentIdColumn.setCellValueFactory(new PropertyValueFactory<Appointment, Integer>("appointmentId"));
+        appointmentStartColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("start"));
+        tableViewAppointment.setItems(Appointment.getAllAppointmentsFiltered());
     }
     public void countrySelectedStart() {
         try {
@@ -191,8 +213,6 @@ public class ModifyCustomerController implements Initializable {
                 selectDivision(String.valueOf(menuButtonDivisions.getValue())));
         Appointment.populateList();
 
-        //ResultSet rs = Query.addCustomerToQueryDB(customerIdData, textFieldCustomerName.getText(), textFieldAddress.getText(), textFieldPostalCode.getText(), textFieldPhoneNumber.getText(),
-                //createDateData, createdByData, createTime, LoginController.username, selectDivision(String.valueOf(menuButtonDivisions.getValue())));
         //The list is re-populated and makes sure no duplicates are added to same list----------------------
         Customer.populateList();
         Form.changePageTo(e, "mainMenuViewCustomers.fxml");
@@ -216,6 +236,25 @@ public class ModifyCustomerController implements Initializable {
                 }
             }
             return result;
+    }
+    public void deleteAppointmentButtonClick(ActionEvent e) throws IOException {
+        Appointment selectedAppointment = tableViewAppointment.getSelectionModel().getSelectedItem();
+        if (selectedAppointment != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle(Lang.print("Appointments"));
+            alert.setHeaderText(Lang.print("Delete"));
+            alert.setContentText(Lang.print("Do")+" "+Lang.print("you")+" "+Lang.print("want")+" "+Lang.print("to")+" "+Lang.print("delete")
+                    +" "+Lang.print("this")+" "+Lang.print("Appointment")+"?");
+            if (alert.showAndWait().get() == ButtonType.OK) {
+                Appointment.deleteAppointment(selectedAppointment);
+                Appointment.filterByCustomer(selectedCus);
+                appointmentIdColumn.setCellValueFactory(new PropertyValueFactory<Appointment, Integer>("appointmentId"));
+                appointmentStartColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("start"));
+                tableViewAppointment.setItems(Appointment.getAllAppointmentsFiltered());
+            }
+        } else {
+            ErrorMessage.msg(Lang.print("Please")+" "+Lang.print("select")+" "+Lang.print("an")+" "+Lang.print("Appointment")+" "+Lang.print("to")+" "+Lang.print("delete")+".");
+        }
     }
 }
 
