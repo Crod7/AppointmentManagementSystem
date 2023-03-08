@@ -308,6 +308,14 @@ public class Appointment {
             }
         }
     }
+    public static void filterByContact(Contact obj){
+        allAppointmentsFiltered.clear();
+        for (Appointment x : getAllAppointments()){
+            if (x.getContactName().equals(obj.getContactName())) {
+                allAppointmentsFiltered.add(x);
+            }
+        }
+    }
     public static int checkIfCustomerIsEmpty(Customer obj){
         int result = 0;
         for (Appointment x : getAllAppointments()){
