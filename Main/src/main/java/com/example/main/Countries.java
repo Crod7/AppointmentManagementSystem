@@ -9,6 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Countries {
+
+    public static String[] countryOptions = {"U.S.","UK","Canada"};
+
     private static ObservableList<Countries> allCountries = FXCollections.observableArrayList();
     private int countryId;
     private String country;

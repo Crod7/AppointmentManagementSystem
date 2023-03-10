@@ -9,6 +9,7 @@ import java.sql.SQLException;
 public class Customer {
 
     private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
+    private static ObservableList<Customer> allCustomersFiltered = FXCollections.observableArrayList();
     private int customerId;
     private String customerName;
     private String address;
@@ -116,6 +117,9 @@ public class Customer {
     //The code below manages the methods used by this class --------------------------------------------------------
     public static ObservableList<Customer> getAllCustomers(){
         return allCustomers;
+    }
+    public static ObservableList<Customer> getAllCustomersFiltered(){
+        return allCustomersFiltered;
     }
     public static void addCustomer(Customer app){
         allCustomers.add(app);

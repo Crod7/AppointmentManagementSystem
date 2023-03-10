@@ -15,6 +15,7 @@ import static com.example.main.JDBC.connection;
 public class Appointment {
     private static ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
     private static ObservableList<Appointment> allAppointmentsFiltered = FXCollections.observableArrayList();
+
     private int appointmentId;
     private String title;
     private String description;
