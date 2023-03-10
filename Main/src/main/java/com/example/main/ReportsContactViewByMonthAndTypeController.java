@@ -5,12 +5,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+
 import java.io.IOException;
 import java.net.URL;
+import java.time.Month;
 import java.util.ResourceBundle;
 
-public class ReportsContactScheduleController implements Initializable {
+public class ReportsContactViewByMonthAndTypeController implements Initializable {
     /*Manages the buttons/ labels on screen-------------------------------------------------------------------------------------------*/
+
+
+    @FXML
+    private Button goButton;
     /** This variable manages the button so, it can be referenced when selecting this button to change the page.
      */
     @FXML
@@ -26,7 +32,11 @@ public class ReportsContactScheduleController implements Initializable {
     /** This variable manages text to tell the user what the combo box is used for.
      */
     @FXML
-    private Label labelSortedBy;
+    private Label labelMonth;
+    /** This variable manages text to tell the user what the combo box is used for.
+     */
+    @FXML
+    private Label labelType;
 
     /** This variable manages a radio button that when pressed will change the table view to filter Appointments by Contact.
      */
@@ -47,76 +57,49 @@ public class ReportsContactScheduleController implements Initializable {
     /** This variable manages the Table View on the page.
      */
     @FXML
-    private TableView<Appointment> tableViewMainTable;
-    /** This variable manages the Column holding the AppointmentID data.
-     */
-    @FXML
-    private TableColumn<Appointment, Integer> appointmentIdColumn;
-    /** This variable manages the Column holding the Description data.
-     */
-    @FXML
-    private TableColumn<Appointment, String> descriptionColumn;
-    /** This variable manages the Column holding the End Time data, which holds the time the appointment ends.
-     */
-    @FXML
-    private TableColumn<Appointment, String> endColumn;
-    /** This variable manages the Column holding the Start Time data, which holds the time the appointment starts.
-     */
-    @FXML
-    private TableColumn<Appointment, String> startColumn;
-    /** This variable manages the Column holding the Title data.
-     */
-    @FXML
-    private TableColumn<Appointment, String> titleColumn;
+    private TableView<MonthAndType> tableViewMainTable;
     /** This variable manages the Column holding the Type data.
      */
     @FXML
-    private TableColumn<Appointment, String> typeColumn;
-    /** This variable manages the Column holding the CustomerID data.
+    private TableColumn<MonthAndType, String> typeColumn;
+    /** This variable manages the Column holding the Month data.
      */
     @FXML
-    private TableColumn<Appointment, Integer> customerIdColumn;
-    /** This variable manages the ComboBox that decides what contact will be used to filter the table.
+    private TableColumn<MonthAndType, String> monthColumn;
+    /** This variable manages the Column holding the Quantity data.
      */
     @FXML
-    private ComboBox menuButtonContactId;
+    private TableColumn<MonthAndType, Integer> quantityColumn;
+    /** This variable manages the ComboBox that decides what month will be used to filter the table.
+     */
+    @FXML
+    private ComboBox menuButtonMonth;
+    /** This variable manages the ComboBox that decides what type will be used to filter the table.
+     */
+    @FXML
+    private ComboBox menuButtonType;
 
     /** When the page is initialized, the text will be converted to the correct language (Either english or french).
      */
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        appointmentIdColumn.setText(Lang.print("Appointment")+" "+Lang.print("ID"));
-        titleColumn.setText(Lang.print("Title"));
+        monthColumn.setText(Lang.print("Month"));
         typeColumn.setText(Lang.print("Type"));
-        descriptionColumn.setText(Lang.print("Description"));
-        startColumn.setText(Lang.print("Start"));
-        endColumn.setText(Lang.print("End"));
-        customerIdColumn.setText(Lang.print("Customer")+" "+Lang.print("ID"));
+        quantityColumn.setText(Lang.print("Quantity"));
         buttonCancel.setText(Lang.print("Cancel"));
         buttonLogout.setText(Lang.print("Logout"));
         labelHeader.setText(Lang.print("Reports"));
         radioButtonSortByContact.setText(Lang.print("Contact")+" "+Lang.print("Schedule"));
         radioButtonSortByCountry.setText(Lang.print("Total")+" "+Lang.print("Customers")+" "+Lang.print("by")+" "+Lang.print("Country"));
         radioButtonSortByMonthAndType.setText(Lang.print("Total")+" "+Lang.print("Customers")+" "+Lang.print("by")+" "+Lang.print("Month")+" "+Lang.print("And")+" "+Lang.print("Type"));
-        //This label changes depending on the Form selected by the radio buttons
-        labelSortedBy.setText(Lang.print("Contact"));
+        //This label changes depending on the Form selected by the radio buttons-----------------
+        labelType.setText(Lang.print("Type"));
+        labelMonth.setText(Lang.print("Month"));
 
-        //
-        menuButtonContactId.setItems(Contact.getAllContacts());
-    }
-    /** When a contact is selected, the table view will display all appointments associated with the contact.
-     */
-    public void sortByContactSelect(ActionEvent e) throws IOException{
-        //sets the table view-----------------------------------------------------------------------------------------
-        Appointment.filterByContact((Contact) menuButtonContactId.getSelectionModel().getSelectedItem());
-        appointmentIdColumn.setCellValueFactory(new PropertyValueFactory<Appointment ,Integer>("appointmentId"));
-        titleColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("title"));
-        descriptionColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("description"));
-        typeColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("type"));
-        startColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("start"));
-        endColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("end"));
-        customerIdColumn.setCellValueFactory(new PropertyValueFactory<Appointment ,Integer>("customerId"));
-        tableViewMainTable.setItems(Appointment.getAllAppointmentsFiltered());
+        //This will fill the combo boxes with the available options------------------
+        MonthAndType.populateTypeComboBox();
+        menuButtonMonth.getItems().addAll(DateFilter.monthOptions);
+        menuButtonType.getItems().addAll(MonthAndType.typeOptions);
     }
     /** This button will log out the user and bring them back to the login screen.
      */
@@ -128,10 +111,23 @@ public class ReportsContactScheduleController implements Initializable {
     public void cancelButtonClick(ActionEvent e) throws IOException {
         Form.changePageTo(e, "mainMenuViewAll.fxml");
     }
+    /** When pressed, will display a report showing the number of appointments matching the filter settings of month and type set by the user. Also checks to make sure the user entered the both filters.
+     */
+    public void goButtonClick(){
+        if (menuButtonMonth.getValue() != null && menuButtonType.getValue() != null){
+            MonthAndType.populateList(String.valueOf(menuButtonMonth.getValue()), String.valueOf(menuButtonType.getValue()));
+            monthColumn.setCellValueFactory(new PropertyValueFactory<MonthAndType, String>("month"));
+            typeColumn.setCellValueFactory(new PropertyValueFactory<MonthAndType, String>("type"));
+            quantityColumn.setCellValueFactory(new PropertyValueFactory<MonthAndType ,Integer>("quantity"));
+            tableViewMainTable.setItems(MonthAndType.getAllAppointments());
+        } else {
+            ErrorMessage.msg(Lang.print("Please")+" "+Lang.print("select")+" "+Lang.print("Month")+" "+Lang.print("and")+" "+Lang.print("Type")+".");
+        }
+    }
     /** This function is linked to a button, and when the button is pressed will take the user to the Month And Type Reports form.
      */
-    public void monthAndTypeButtonClick(ActionEvent e) throws IOException {
-        Form.changePageTo(e, "reportsViewByMonthAndType.fxml");
+    public void contactButtonClick(ActionEvent e) throws IOException {
+        Form.changePageTo(e, "reportsContactSchedule.fxml");
     }
     /** This function is linked to a button, and when the button is pressed will take the user to the Country Reports form.
      */

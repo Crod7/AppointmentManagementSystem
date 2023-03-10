@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="501.0" prefWidth="842.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.main.ReportsContactViewByMonthAndTypeController">
+   <children>
+      <Label fx:id="labelHeader" layoutX="58.0" layoutY="26.0" text="Reports" />
+      <RadioButton fx:id="radioButtonSortByContact" layoutX="58.0" layoutY="63.0" mnemonicParsing="false" onAction="#contactButtonClick" text="Contact Schedule">
+         <toggleGroup>
+            <ToggleGroup fx:id="radioGroup" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="radioButtonSortByMonthAndType" layoutX="225.0" layoutY="63.0" mnemonicParsing="false" selected="true" text="Total Customers by Month and Type" toggleGroup="$radioGroup" />
+      <RadioButton fx:id="radioButtonSortByCountry" layoutX="509.0" layoutY="63.0" mnemonicParsing="false" onAction="#countryButtonClick" text="Total Customers by Country" toggleGroup="$radioGroup" />
+      <Label fx:id="labelMonth" layoutX="225.0" layoutY="128.0" text="Month" />
+      <TableView fx:id="tableViewMainTable" layoutX="15.0" layoutY="190.0" prefHeight="200.0" prefWidth="813.0">
+        <columns>
+          <TableColumn fx:id="monthColumn" prefWidth="149.0" text="Month" />
+            <TableColumn fx:id="typeColumn" prefWidth="392.0" text="Type" />
+            <TableColumn fx:id="quantityColumn" prefWidth="268.0" text="Quantity" />
+        </columns>
+      </TableView>
+      <Button fx:id="buttonCancel" layoutX="76.0" layoutY="415.0" mnemonicParsing="false" onAction="#cancelButtonClick" text="Cancel" />
+      <Button fx:id="buttonLogout" layoutX="720.0" layoutY="415.0" mnemonicParsing="false" onAction="#logoutButtonClick" text="Logout" />
+      <ComboBox fx:id="menuButtonMonth" layoutX="285.0" layoutY="124.0" prefWidth="150.0" />
+      <Label fx:id="labelType" layoutX="225.0" layoutY="159.0" text="Type" />
+      <ComboBox fx:id="menuButtonType" layoutX="285.0" layoutY="155.0" prefWidth="150.0" />
+      <Button fx:id="goButton" layoutX="470.0" layoutY="155.0" mnemonicParsing="false" onAction="#goButtonClick" prefHeight="25.0" prefWidth="71.0" text="Go" />
+   </children>
+</AnchorPane>

@@ -17,8 +17,8 @@
             <ToggleGroup fx:id="radioGroup" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="radioButtonSortByMonthAndType" layoutX="225.0" layoutY="63.0" mnemonicParsing="false" text="Total Customers by Month and Type" toggleGroup="$radioGroup" />
-      <RadioButton fx:id="radioButtonSortByCountry" layoutX="509.0" layoutY="63.0" mnemonicParsing="false" text="Total Customers by Country" toggleGroup="$radioGroup" />
+      <RadioButton fx:id="radioButtonSortByMonthAndType" layoutX="225.0" layoutY="63.0" mnemonicParsing="false" onAction="#monthAndTypeButtonClick" text="Total Customers by Month and Type" toggleGroup="$radioGroup" />
+      <RadioButton fx:id="radioButtonSortByCountry" layoutX="509.0" layoutY="63.0" mnemonicParsing="false" onAction="#countryButtonClick" text="Total Customers by Country" toggleGroup="$radioGroup" />
       <Label fx:id="labelSortedBy" layoutX="225.0" layoutY="128.0" text="Contact" />
       <TableView fx:id="tableViewMainTable" layoutX="13.0" layoutY="168.0" prefHeight="200.0" prefWidth="813.0">
         <columns>
