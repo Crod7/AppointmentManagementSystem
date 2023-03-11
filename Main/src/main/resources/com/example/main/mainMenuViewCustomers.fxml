@@ -8,7 +8,7 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="679.0" prefWidth="669.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.main.MainMenuViewCustomersController">
+<AnchorPane prefHeight="679.0" prefWidth="797.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.main.MainMenuViewCustomersController">
    <children>
       <Label fx:id="labelAppointmentSchedule" layoutX="23.0" layoutY="35.0" text="Customers" />
       <RadioButton fx:id="buttonViewCustomers" layoutX="197.0" layoutY="35.0" mnemonicParsing="false" selected="true" text="View Customers">
@@ -17,13 +17,14 @@
          </toggleGroup>
       </RadioButton>
       <RadioButton fx:id="buttonViewAll" layoutX="333.0" layoutY="35.0" mnemonicParsing="false" onAction="#viewAllButtonClick" text="View Appointments" toggleGroup="$viewGroup" />
-      <TableView fx:id="tableviewMainMenuTable" layoutX="14.0" layoutY="130.0" prefHeight="365.0" prefWidth="640.0">
+      <TableView fx:id="tableviewMainMenuTable" layoutX="14.0" layoutY="130.0" prefHeight="365.0" prefWidth="771.0">
         <columns>
           <TableColumn fx:id="customerIdColumn" prefWidth="75.0" text="Customer ID" />
           <TableColumn fx:id="customerNameColumn" prefWidth="116.0" text="Cusotmer Name" />
             <TableColumn fx:id="addressColumn" prefWidth="196.0" text="Address" />
             <TableColumn fx:id="postalColumn" minWidth="0.0" prefWidth="101.0" text="Postal Code" />
-            <TableColumn fx:id="phoneColumn" prefWidth="150.0" text="Phone Number" />
+            <TableColumn fx:id="phoneColumn" prefWidth="141.0" text="Phone Number" />
+            <TableColumn fx:id="divisionIdColumn" prefWidth="139.0" text="Division" />
         </columns>
       </TableView>
       <Button fx:id="buttonReports" layoutX="507.0" layoutY="570.0" mnemonicParsing="false" onAction="#reportsButtonClick" text="Reports" />

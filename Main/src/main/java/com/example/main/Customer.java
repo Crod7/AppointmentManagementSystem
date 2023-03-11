@@ -2,6 +2,7 @@ package com.example.main;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -125,6 +126,12 @@ public class Customer {
         allCustomers.add(app);
     }
     public static boolean deleteCustomer(Customer selectedCustomer){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(Lang.print("Deleted"));
+        alert.setHeaderText(Lang.print("Customer")+" "+Lang.print("ID")+": "+selectedCustomer.getCustomerId()+"   "+Lang.print("Name")+": "+selectedCustomer.getCustomerName());
+        alert.setContentText(Lang.print("This")+" "+Lang.print("Customer")+" "+Lang.print("was")+" "+Lang.print("Deleted")+".");
+        alert.showAndWait();
+
         Query.deleteQueryDB("SELECT * FROM customers WHERE customer_id =" + selectedCustomer.getCustomerId());
         allCustomers.remove(selectedCustomer);
         Appointment.populateList();

@@ -61,6 +61,9 @@ public class MainMenuViewCustomersController implements Initializable {
     private TableColumn<Customer, String> customerNameColumn;
 
     @FXML
+    private TableColumn<Customer, Integer> divisionIdColumn;
+
+    @FXML
     private TableColumn<Customer, String> phoneColumn;
 
     @FXML
@@ -87,6 +90,7 @@ public class MainMenuViewCustomersController implements Initializable {
         addressColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("address"));
         postalColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("postalCode"));
         phoneColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("phone"));
+        divisionIdColumn.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("divisionId"));
         tableviewMainMenuTable.setItems(Customer.getAllCustomers());
         //changes the language of each column-------------------------------------------------------------------
         customerIdColumn.setText(Lang.print("Customer")+" "+Lang.print("ID"));
@@ -94,6 +98,7 @@ public class MainMenuViewCustomersController implements Initializable {
         addressColumn.setText(Lang.print("Address"));
         postalColumn.setText(Lang.print("Postal")+" "+Lang.print("Code"));
         phoneColumn.setText(Lang.print("Phone")+" "+Lang.print("Number"));
+        divisionIdColumn.setText(Lang.print("Division"));
         //changes the language of each label--------------------------------------------------------------------
         labelAppointmentSchedule.setText(Lang.print("Customers"));
         buttonAddCustomer.setText(Lang.print("Add")+" "+Lang.print("Customer"));

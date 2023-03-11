@@ -2,6 +2,7 @@ package com.example.main;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 
 import java.sql.DriverManager;
@@ -171,6 +172,12 @@ public class Appointment {
         allAppointments.add(app);
     }
     public static boolean deleteAppointment(Appointment selectedAppointment){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(Lang.print("Deleted"));
+        alert.setHeaderText(Lang.print("Appointment")+" "+Lang.print("ID")+": "+selectedAppointment.getAppointmentId()+"   "+Lang.print("Type")+": "+selectedAppointment.getType());
+        alert.setContentText(Lang.print("This")+" "+Lang.print("Appointment")+" "+Lang.print("was")+" "+Lang.print("Deleted")+".");
+        alert.showAndWait();
+
         Query.deleteQueryDB("SELECT * FROM appointments WHERE appointment_id =" + selectedAppointment.getAppointmentId());
         allAppointments.remove(selectedAppointment);
         Appointment.populateList();
