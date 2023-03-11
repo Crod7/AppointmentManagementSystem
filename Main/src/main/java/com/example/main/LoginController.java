@@ -10,9 +10,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.net.URL;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -58,23 +64,43 @@ public class LoginController implements Initializable {
     /** This method is activated when pressing the login button on the login screen, it checks for authentication to make sure the USERID mataches its respective PASSWORD.
      */
     public void loginButtonClick(ActionEvent e) throws IOException{
+        int errorCheck = 0;
+        LocalDateTime time = LocalDateTime.now();
+        String loginTime = TimeConversion.ConvertToUtcWithSeconds(time.toLocalDate(), time.getHour(), time.getMinute(), time.getSecond());
         try {
             ResultSet rs = Query.queryDB("SELECT * FROM users");
             while(rs.next()){
                 if (textFieldUsername.getText().equals(rs.getString("User_Name"))) {
                     if (textFieldPassword.getText().equals(rs.getString("Password"))){
+                        BufferedWriter writer = new BufferedWriter(new FileWriter("login_activity.txt",true));
+                        writer.append("\nUser: " +textFieldUsername.getText()+" || Attempted login at " + loginTime +" || Login Successful!");
+                        writer.close();
+                        errorCheck = errorCheck + 1;
+
                         username = rs.getString("User_Name");
                         JDBC.openConnection();
                         Appointment.populateList();
                         Customer.populateList();
                         Form.changePageTo(e, "mainMenuViewAll.fxml");
                     } else{
+                        if (errorCheck == 0){
+                            BufferedWriter writer = new BufferedWriter(new FileWriter("login_activity.txt",true));
+                            writer.append("\nUser: " +textFieldUsername.getText()+" || Attempted login at " + loginTime +" || Login Failed!");
+                            writer.close();
+                            errorCheck = errorCheck + 1;
+                        }
                         labelError.setText(Lang.print("ERROR")+" "+Lang.print("Invalid")+" "+Lang.print("Password"));
                     }
 
                 }else{
                     labelError.setText(Lang.print("ERROR")+" "+Lang.print("Invalid")+" "+Lang.print("Login"));
                 }
+            }
+            if (errorCheck == 0){
+                BufferedWriter writer = new BufferedWriter(new FileWriter("login_activity.txt",true));
+                writer.append("\nUser: " +textFieldUsername.getText()+" || Attempted login at " + loginTime +" || Login Failed!");
+                writer.close();
+                errorCheck = errorCheck + 1;
             }
         }catch(SQLException se){
         }

@@ -41,4 +41,16 @@ public class TimeConversion {
         return  result;
 
     }
+    public static String ConvertToUtcWithSeconds(LocalDate date, int hour, int minute, int seconds) {
+        LocalDate myLD = LocalDate.of(date.getYear(), date.getMonth(), date.getDayOfMonth());
+        LocalTime myLT = LocalTime.of(hour, minute, seconds);
+        LocalDateTime myLDT = LocalDateTime.of(myLD, myLT);
+        ZoneId myZoneId = ZoneId.systemDefault();
+        ZonedDateTime myZDT = ZonedDateTime.of(myLDT, myZoneId);
+        ZoneId utcZoneId = ZoneId.of("UTC");
+        ZonedDateTime utcZDT = ZonedDateTime.ofInstant(myZDT.toInstant(), utcZoneId);
+        String result = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(utcZDT);
+        return  result;
+
+    }
 }
