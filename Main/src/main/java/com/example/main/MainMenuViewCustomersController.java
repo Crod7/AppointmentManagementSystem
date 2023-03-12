@@ -106,7 +106,7 @@ public class MainMenuViewCustomersController implements Initializable {
         buttonLogout.setText(Lang.print("Logout"));
         buttonModifyCustomer.setText(Lang.print("Modify")+" "+Lang.print("Customer"));
         buttonReports.setText(Lang.print("Reports"));
-        buttonViewAll.setText(Lang.print("View")+" "+Lang.print("All"));
+        buttonViewAll.setText(Lang.print("View")+" "+Lang.print("Appointments"));
         buttonViewCustomers.setText(Lang.print("View")+" "+Lang.print("Customers"));
     }
 

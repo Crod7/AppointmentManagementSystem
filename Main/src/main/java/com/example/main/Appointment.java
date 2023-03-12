@@ -183,6 +183,12 @@ public class Appointment {
         Appointment.populateList();
         return true;
     }
+    public static boolean updateAppointment(Appointment selectedAppointment){
+        Query.deleteQueryDB("SELECT * FROM appointments WHERE appointment_id =" + selectedAppointment.getAppointmentId());
+        allAppointments.remove(selectedAppointment);
+        Appointment.populateList();
+        return true;
+    }
     public static void populateList(){
         try {
             allAppointments.clear();

@@ -22,7 +22,6 @@
       <Label fx:id="labelCustomerId" layoutX="429.0" layoutY="82.0" text="Customer" />
       <Label fx:id="labelStartDate" layoutX="40.0" layoutY="330.0" text="Start Date" />
       <Label fx:id="labelStartTime" layoutX="40.0" layoutY="360.0" text="Start Time" />
-      <Label fx:id="labelEndDate" layoutX="320.0" layoutY="330.0" text="End Date" />
       <Label fx:id="labelEndTime" layoutX="320.0" layoutY="360.0" text="End Time" />
       <TextField fx:id="textFieldAppointmentId" disable="true" layoutX="141.0" layoutY="86.0" />
       <TextField fx:id="textFieldTitle" layoutX="141.0" layoutY="116.0" />
@@ -32,7 +31,6 @@
       <Button fx:id="buttonSave" layoutX="191.0" layoutY="462.0" mnemonicParsing="false" onAction="#saveButtonClick" prefHeight="25.0" prefWidth="67.0" text="Save" />
       <Button fx:id="buttonCancel" layoutX="264.0" layoutY="462.0" mnemonicParsing="false" onAction="#cancelButtonClick" text="Cancel" />
       <DatePicker fx:id="datePickerStartDate" layoutX="158.0" layoutY="326.0" prefHeight="25.0" prefWidth="149.0" />
-      <DatePicker fx:id="datePickerEndDate" layoutX="442.0" layoutY="326.0" prefHeight="25.0" prefWidth="149.0" />
       <ChoiceBox fx:id="choiceBoxStartTimeHour" layoutX="158.0" layoutY="356.0" prefHeight="25.0" prefWidth="67.0" />
       <ChoiceBox fx:id="choiceBoxStartTimeMinute" layoutX="240.0" layoutY="356.0" prefHeight="25.0" prefWidth="67.0" />
       <ChoiceBox fx:id="choiceBoxEndTimeHour" layoutX="442.0" layoutY="356.0" prefHeight="25.0" prefWidth="67.0" />
@@ -44,5 +42,9 @@
           <TableColumn fx:id="customerNameColumn" prefWidth="190.0" text="Customer Name" />
         </columns>
       </TableView>
+      <Label layoutX="178.0" layoutY="388.0" text="Hour" />
+      <Label layoutX="462.0" layoutY="388.0" text="Hour" />
+      <Label layoutX="263.0" layoutY="388.0" text="Min" />
+      <Label layoutX="547.0" layoutY="388.0" text="Min" />
    </children>
 </AnchorPane>

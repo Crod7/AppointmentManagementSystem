@@ -29,9 +29,9 @@
                 <TableColumn fx:id="contactIdColumn" prefWidth="120.0" text="Contact" />
                 <TableColumn fx:id="typeColumn" prefWidth="103.0" text="Type" />
                 <TableColumn fx:id="startColumn" prefWidth="135.0" text="Start" />
-                <TableColumn fx:id="endColumn" prefWidth="161.0" text="End" />
+                <TableColumn fx:id="endColumn" prefWidth="135.0" text="End" />
                 <TableColumn fx:id="customerIdColumn" text="Customer ID" />
-                <TableColumn fx:id="userIdColumn" prefWidth="47.0" text="User ID" />
+                <TableColumn fx:id="userIdColumn" prefWidth="65.0" text="User ID" />
             </columns>
         </TableView>
         <Button fx:id="buttonReports" layoutX="858.0" layoutY="570.0" mnemonicParsing="false" onAction="#reportsButtonClick" text="Reports" />

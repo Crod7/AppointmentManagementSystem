@@ -157,7 +157,7 @@ public class ModifyAppointmentController implements Initializable{
         labelContactId.setText(Lang.print("Contact"));
         labelCustomerId.setText(Lang.print("Customer"));
         labelDescription.setText(Lang.print("Description"));
-        labelEndDate.setText(Lang.print("End")+" "+Lang.print("Date"));
+        //labelEndDate.setText(Lang.print("End")+" "+Lang.print("Date"));
         labelEndTime.setText(Lang.print("End")+" "+Lang.print("Time"));
         labelHeader.setText(Lang.print("Add")+" "+Lang.print("Appointments"));
         labelLocation.setText(Lang.print("Location"));
@@ -196,7 +196,7 @@ public class ModifyAppointmentController implements Initializable{
         choiceBoxStartTimeMinute.setValue(startData.substring(14,16));
 
         LocalDate endDateVal = LocalDate.parse(endData.substring(0,10));
-        datePickerEndDate.setValue(endDateVal);
+        datePickerStartDate.setValue(endDateVal);
         choiceBoxEndTimeHour.setValue(endData.substring(11,13));
         choiceBoxEndTimeMinute.setValue(endData.substring(14,16));
 
@@ -238,7 +238,7 @@ public class ModifyAppointmentController implements Initializable{
             ErrorMessage.msg(Lang.print("Please")+" "+Lang.print("select")+" "+Lang.print("a")+" "+Lang.print("Start")+" "+Lang.print("Date"));
             return;
         }
-        if (datePickerEndDate.getValue() == null || choiceBoxEndTimeHour.getValue() == null || choiceBoxEndTimeMinute.getValue() == null){
+        if (choiceBoxEndTimeHour.getValue() == null || choiceBoxEndTimeMinute.getValue() == null){
             ErrorMessage.msg(Lang.print("Please")+" "+Lang.print("select")+" "+Lang.print("a")+" "+Lang.print("End")+" "+Lang.print("Date"));
             return;
         }
@@ -259,10 +259,27 @@ public class ModifyAppointmentController implements Initializable{
         LocalDateTime currentLocalTime = LocalDateTime.now();
         String createTime = TimeConversion.ConvertToUtc(currentLocalTime.toLocalDate(), currentLocalTime.getHour(), currentLocalTime.getMinute());
         String startTime = TimeConversion.ConvertToUtc(datePickerStartDate.getValue(), parseInt(choiceBoxStartTimeHour.getValue()), parseInt(choiceBoxStartTimeMinute.getValue()));
-        String endTime = TimeConversion.ConvertToUtc(datePickerEndDate.getValue(), parseInt(choiceBoxEndTimeHour.getValue()), parseInt(choiceBoxEndTimeMinute.getValue()));
+        String endTime = TimeConversion.ConvertToUtc(datePickerStartDate.getValue(), parseInt(choiceBoxEndTimeHour.getValue()), parseInt(choiceBoxEndTimeMinute.getValue()));
+        //This will check to see if the appointment starts and ends during business hours, 8am to 10pm EST-------------------
+        if (TimeConversion.checkIfOpen(startTime) || TimeConversion.checkIfOpen(endTime)){
+            ErrorMessage.msg(Lang.print("Store")+" "+Lang.print("hours")+" "+Lang.print("between")+" 8:00am - 10:00pm EST" );
+            return;
+        }
+        //This will make sure that the beginning of an appointment starts before the end of the appointment--------------------------------
+        //If hour the same, minute must be less
+        if ((Integer.parseInt(choiceBoxStartTimeHour.getValue()) == Integer.parseInt(choiceBoxEndTimeHour.getValue())) &&
+                (Integer.parseInt(choiceBoxStartTimeMinute.getValue()) >= Integer.parseInt(choiceBoxEndTimeMinute.getValue()))){
+            ErrorMessage.msg(Lang.print("Appointment")+" "+Lang.print("must")+" "+Lang.print("start")+" "+Lang.print("before")+" "+Lang.print("End")+" "+Lang.print("of")+" "+Lang.print("Appointment")+".");
+            return;
+        }
+        //If hour starts after the end of appointment, also calls error
+        if ((Integer.parseInt(choiceBoxStartTimeHour.getValue()) > Integer.parseInt(choiceBoxEndTimeHour.getValue()))){
+            ErrorMessage.msg(Lang.print("Appointment")+" "+Lang.print("must")+" "+Lang.print("start")+" "+Lang.print("before")+" "+Lang.print("End")+" "+Lang.print("of")+" "+Lang.print("Appointment")+".");
+            return;
+        }
 
-        //Before an appointment can be replaced, we must first delete the appointment from the database and reinsert it to take it's place---------------
-        Appointment.deleteAppointment(selectedApp);
+        //Before an appointment can be replaced, we must first update the appointment from the database and reinsert it to take it's place---------------
+        Appointment.updateAppointment(selectedApp);
         //Finally this addToQueryDB method inserts a row into the database----------------------
         ResultSet rs = Query.addToQueryDB(appointmentIdData, textFieldTitle.getText(), textFieldDescription.getText(), textFieldLocation.getText(), textFieldType.getText(), startTime,
                 endTime, createDateData, createdByData, createTime/*UpdateTime*/, LoginController.username/*LastUpdatedBy*/, /*selectCustomer(e)*/selectedCustomer, Appointment.autoUserIdGenerator(), selectedContact);

@@ -146,7 +146,7 @@ public class AddAppointmentController implements Initializable{
         labelContactId.setText(Lang.print("Contact"));
         labelCustomerId.setText(Lang.print("Customer"));
         labelDescription.setText(Lang.print("Description"));
-        labelEndDate.setText(Lang.print("End")+" "+Lang.print("Date"));
+        //labelEndDate.setText(Lang.print("End")+" "+Lang.print("Date"));
         labelEndTime.setText(Lang.print("End")+" "+Lang.print("Time"));
         labelHeader.setText(Lang.print("Add")+" "+Lang.print("Appointments"));
         labelLocation.setText(Lang.print("Location"));
@@ -197,7 +197,7 @@ public class AddAppointmentController implements Initializable{
             ErrorMessage.msg(Lang.print("Please")+" "+Lang.print("select")+" "+Lang.print("a")+" "+Lang.print("Start")+" "+Lang.print("Date"));
             return;
         }
-        if (datePickerEndDate.getValue() == null || choiceBoxEndTimeHour.getValue() == null || choiceBoxEndTimeMinute.getValue() == null){
+        if (choiceBoxEndTimeHour.getValue() == null || choiceBoxEndTimeMinute.getValue() == null){
             ErrorMessage.msg(Lang.print("Please")+" "+Lang.print("select")+" "+Lang.print("a")+" "+Lang.print("End")+" "+Lang.print("Date"));
             return;
         }
@@ -216,12 +216,30 @@ public class AddAppointmentController implements Initializable{
 
         //These dates are converted to UTC so that when other users download the data it will be converted to their local time------------------
         LocalDateTime currentLocalTime = LocalDateTime.now();
-        String createTime = TimeConversion.ConvertToUtc(currentLocalTime.toLocalDate(), currentLocalTime.getHour(), currentLocalTime.getMinute());
+        String createTime = TimeConversion.ConvertToUtcWithSeconds(currentLocalTime.toLocalDate(), currentLocalTime.getHour(), currentLocalTime.getMinute(), currentLocalTime.getSecond());
         String startTime = TimeConversion.ConvertToUtc(datePickerStartDate.getValue(), Integer.parseInt(choiceBoxStartTimeHour.getValue()), Integer.parseInt(choiceBoxStartTimeMinute.getValue()));
-        String endTime = TimeConversion.ConvertToUtc(datePickerEndDate.getValue(), Integer.parseInt(choiceBoxEndTimeHour.getValue()), Integer.parseInt(choiceBoxEndTimeMinute.getValue()));
+        String endTime = TimeConversion.ConvertToUtc(datePickerStartDate.getValue(), Integer.parseInt(choiceBoxEndTimeHour.getValue()), Integer.parseInt(choiceBoxEndTimeMinute.getValue()));
+        //This will check to see if the appointment starts and ends during business hours, 8am to 10pm EST-------------------
+        if (TimeConversion.checkIfOpen(startTime) || TimeConversion.checkIfOpen(endTime)){
+            ErrorMessage.msg(Lang.print("Store")+" "+Lang.print("hours")+" "+Lang.print("between")+" 8:00am - 10:00pm EST" );
+            return;
+        }
+        //This will make sure that the beginning of an appointment starts before the end of the appointment--------------------------------
+        //If hour the same, minute must be less
+        if ((Integer.parseInt(choiceBoxStartTimeHour.getValue()) == Integer.parseInt(choiceBoxEndTimeHour.getValue())) &&
+                (Integer.parseInt(choiceBoxStartTimeMinute.getValue()) >= Integer.parseInt(choiceBoxEndTimeMinute.getValue()))){
+            ErrorMessage.msg(Lang.print("Appointment")+" "+Lang.print("must")+" "+Lang.print("start")+" "+Lang.print("before")+" "+Lang.print("End")+" "+Lang.print("of")+" "+Lang.print("Appointment")+".");
+            return;
+        }
+        //If hour starts after the end of appointment, also calls error
+        if ((Integer.parseInt(choiceBoxStartTimeHour.getValue()) > Integer.parseInt(choiceBoxEndTimeHour.getValue()))){
+            ErrorMessage.msg(Lang.print("Appointment")+" "+Lang.print("must")+" "+Lang.print("start")+" "+Lang.print("before")+" "+Lang.print("End")+" "+Lang.print("of")+" "+Lang.print("Appointment")+".");
+            return;
+        }
 
 
-        //Finally this addToQueryDB method inserts a row into the database----------------------
+
+        //Finally this addToQueryDB method inserts a row into the database---------------------------------------------------------
         ResultSet rs = Query.addToQueryDB(Appointment.generateAppointmentId(), textFieldTitle.getText(), textFieldDescription.getText(), textFieldLocation.getText(), textFieldType.getText(), startTime,
                 endTime, createTime, LoginController.username, createTime/*UpdateTime*/, LoginController.username/*LastUpdatedBy*/, /*selectCustomer(e)*/selectedCustomer, Appointment.autoUserIdGenerator(), selectedContact);
         //The list is re-populated and makes sure no duplicates are added to same list----------------------

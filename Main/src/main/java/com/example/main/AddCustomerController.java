@@ -53,16 +53,12 @@ public class AddCustomerController implements Initializable {
 
     @FXML
     private TextField textFieldAddress;
-
     @FXML
     private TextField textFieldCustomerId;
-
     @FXML
     private TextField textFieldCustomerName;
-
     @FXML
     private TextField textFieldPhoneNumber;
-
     @FXML
     private TextField textFieldPostalCode;
 
@@ -75,13 +71,6 @@ public class AddCustomerController implements Initializable {
         // This loads up the options for the choice box---------------------------------------------------------
         Countries.populateList();
         menuButtonCountries.setItems(Countries.getAllCountries());
-
-        // This loads up the table view with Appointments (TO BE USED IN THE MODIFY CUSTOMERS PAGE)---------------------------------------------------------------
-        /*Customer.populateList();
-        customerIdColumn.setCellValueFactory(new PropertyValueFactory<Customer ,Integer>("customerId"));
-        customerNameColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("customerName"));
-        tableViewCustomerTable.setItems(Customer.getAllCustomers());
-        */
 
         // Changes the language of each column and label to default system language--------------------------------------------------------------------
         labelCustomerId.setText(Lang.print("Customer")+" "+Lang.print("ID"));
