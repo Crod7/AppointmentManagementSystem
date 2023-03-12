@@ -277,6 +277,12 @@ public class ModifyAppointmentController implements Initializable{
             ErrorMessage.msg(Lang.print("Appointment")+" "+Lang.print("must")+" "+Lang.print("start")+" "+Lang.print("before")+" "+Lang.print("End")+" "+Lang.print("of")+" "+Lang.print("Appointment")+".");
             return;
         }
+        //This makes sure that the appointment is between monday through friday, any weekend days are not allowed
+        LocalDate day = datePickerStartDate.getValue();
+        if (String.valueOf(day.getDayOfWeek()).equals("SATURDAY") || String.valueOf(day.getDayOfWeek()).equals("SUNDAY")){
+            ErrorMessage.msg("Appointments can only be made during Monday - Friday");
+            return;
+        }
 
         //Before an appointment can be replaced, we must first update the appointment from the database and reinsert it to take it's place---------------
         Appointment.updateAppointment(selectedApp);
