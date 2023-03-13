@@ -159,7 +159,7 @@ public class ModifyAppointmentController implements Initializable{
         labelDescription.setText(Lang.print("Description"));
         //labelEndDate.setText(Lang.print("End")+" "+Lang.print("Date"));
         labelEndTime.setText(Lang.print("End")+" "+Lang.print("Time"));
-        labelHeader.setText(Lang.print("Add")+" "+Lang.print("Appointments"));
+        labelHeader.setText(Lang.print("Modify")+" "+Lang.print("Appointments"));
         labelLocation.setText(Lang.print("Location"));
         labelStartDate.setText(Lang.print("Start")+" "+Lang.print("Date"));
         labelStartTime.setText(Lang.print("Start")+" "+Lang.print("Time"));
@@ -216,7 +216,7 @@ public class ModifyAppointmentController implements Initializable{
 
         }
     }
-    public void saveButtonClick(ActionEvent e) throws IOException {
+    public void saveButtonClick(ActionEvent e) throws IOException, SQLException {
         // This will check to see if all fields hold data, as any empty text fields will throw an error----------------------
         if (textFieldTitle.getText().equals("")){
             ErrorMessage.msg(Lang.print("Please")+" "+Lang.print("enter")+" "+Lang.print("a")+" "+Lang.print("Title"));
@@ -254,18 +254,18 @@ public class ModifyAppointmentController implements Initializable{
             return;
         }
 
-
-        //These dates are converted to UTC so that when other users download the data it will be converted to their local time------------------
+        //WILL WORK WITH THE TIME OF THE APPOINTMENT============================================================================================================================
+        //These dates are converted to UTC so that when other users download the data it will be converted to their local time-----------------------------------
         LocalDateTime currentLocalTime = LocalDateTime.now();
         String createTime = TimeConversion.ConvertToUtc(currentLocalTime.toLocalDate(), currentLocalTime.getHour(), currentLocalTime.getMinute());
         String startTime = TimeConversion.ConvertToUtc(datePickerStartDate.getValue(), parseInt(choiceBoxStartTimeHour.getValue()), parseInt(choiceBoxStartTimeMinute.getValue()));
         String endTime = TimeConversion.ConvertToUtc(datePickerStartDate.getValue(), parseInt(choiceBoxEndTimeHour.getValue()), parseInt(choiceBoxEndTimeMinute.getValue()));
-        //This will check to see if the appointment starts and ends during business hours, 8am to 10pm EST-------------------
+        //This will check to see if the appointment starts and ends during business hours, 8am to 10pm EST----------------------------------------------------
         if (TimeConversion.checkIfOpen(startTime) || TimeConversion.checkIfOpen(endTime)){
             ErrorMessage.msg(Lang.print("Store")+" "+Lang.print("hours")+" "+Lang.print("between")+" 8:00am - 10:00pm EST" );
             return;
         }
-        //This will make sure that the beginning of an appointment starts before the end of the appointment--------------------------------
+        //This will make sure that the beginning of an appointment starts before the end of the appointment--------------------------------------------------
         //If hour the same, minute must be less
         if ((Integer.parseInt(choiceBoxStartTimeHour.getValue()) == Integer.parseInt(choiceBoxEndTimeHour.getValue())) &&
                 (Integer.parseInt(choiceBoxStartTimeMinute.getValue()) >= Integer.parseInt(choiceBoxEndTimeMinute.getValue()))){
@@ -277,12 +277,20 @@ public class ModifyAppointmentController implements Initializable{
             ErrorMessage.msg(Lang.print("Appointment")+" "+Lang.print("must")+" "+Lang.print("start")+" "+Lang.print("before")+" "+Lang.print("End")+" "+Lang.print("of")+" "+Lang.print("Appointment")+".");
             return;
         }
-        //This makes sure that the appointment is between monday through friday, any weekend days are not allowed
+        //This makes sure that the appointment is between monday through friday, any weekend days are not allowed-----------------------------------------
         LocalDate day = datePickerStartDate.getValue();
         if (String.valueOf(day.getDayOfWeek()).equals("SATURDAY") || String.valueOf(day.getDayOfWeek()).equals("SUNDAY")){
             ErrorMessage.msg("Appointments can only be made during Monday - Friday");
             return;
         }
+        //We check to see if any other appointment is taking up this time, as we cannot have overlapping appointments-----------------------------------------
+        if (OverlappingAppointments.checkIfAvailableModifyAppointment(startTime, endTime, appointmentIdData)){
+            ErrorMessage.msg("Appointment is overlapping with another Appointment.");
+            return;
+        }
+
+        //====================================================================================================================================================================
+
 
         //Before an appointment can be replaced, we must first update the appointment from the database and reinsert it to take it's place---------------
         Appointment.updateAppointment(selectedApp);

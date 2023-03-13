@@ -1,15 +1,9 @@
 package com.example.main;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
-import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 public class TimeConversion {
     public static String ConvertToLocal(String date) {
@@ -73,7 +67,9 @@ public class TimeConversion {
 
         int checkTime = (Integer.parseInt(result.substring(11,13)));
         int checkTimeMin = Integer.parseInt(result.substring(14,16));
-        if (checkTime >= 9 && ((checkTime == 23 && checkTimeMin == 0) || checkTime < 23)){
+
+        //System.out.println(checkTime);
+        if ((checkTime >= 9 || checkTime == 23) && ((checkTime == 23 && checkTimeMin == 0) || (checkTime < 23 && checkTime >= 9))){
             //Appointment canceled because location is not open
             return false;
         } else{
@@ -81,4 +77,5 @@ public class TimeConversion {
             return true;
         }
     }
+
 }
