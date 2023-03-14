@@ -46,5 +46,7 @@
       <Label fx:id="labelStartTime11" layoutX="462.0" layoutY="388.0" text="Hour" />
       <Label fx:id="labelStartTime12" layoutX="263.0" layoutY="388.0" text="Min" />
       <Label fx:id="labelStartTime121" layoutX="547.0" layoutY="388.0" text="Min" />
+      <DatePicker fx:id="datePickerEndDate" layoutX="442.0" layoutY="326.0" prefHeight="25.0" prefWidth="149.0" />
+      <Label fx:id="labelStartDate1" layoutX="319.0" layoutY="330.0" text="End Date" />
    </children>
 </AnchorPane>

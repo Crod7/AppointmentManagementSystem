@@ -215,24 +215,25 @@ public class AddAppointmentController implements Initializable{
         LocalDateTime currentLocalTime = LocalDateTime.now();
         String createTime = TimeConversion.ConvertToUtcWithSeconds(currentLocalTime.toLocalDate(), currentLocalTime.getHour(), currentLocalTime.getMinute(), currentLocalTime.getSecond());
         String startTime = TimeConversion.ConvertToUtc(datePickerStartDate.getValue(), Integer.parseInt(choiceBoxStartTimeHour.getValue()), Integer.parseInt(choiceBoxStartTimeMinute.getValue()));
-        String endTime = TimeConversion.ConvertToUtc(datePickerStartDate.getValue(), Integer.parseInt(choiceBoxEndTimeHour.getValue()), Integer.parseInt(choiceBoxEndTimeMinute.getValue()));
+        String endTime = TimeConversion.ConvertToUtc(datePickerEndDate.getValue(), Integer.parseInt(choiceBoxEndTimeHour.getValue()), Integer.parseInt(choiceBoxEndTimeMinute.getValue()));
         //This will check to see if the appointment starts and ends during business hours, 8am to 10pm EST--------------------------------------------------
-        if (TimeConversion.checkIfOpen(startTime) || TimeConversion.checkIfOpen(endTime)){
+        if (BusinessHours.checkIfOpen(startTime, endTime)){
             ErrorMessage.msg(Lang.print("Store")+" "+Lang.print("hours")+" "+Lang.print("between")+" 8:00am - 10:00pm EST" );
             return;
         }
         //This will make sure that the beginning of an appointment starts before the end of the appointment-------------------------------------------------
         //If hour the same, minute must be less
-        if ((Integer.parseInt(choiceBoxStartTimeHour.getValue()) == Integer.parseInt(choiceBoxEndTimeHour.getValue())) &&
-                (Integer.parseInt(choiceBoxStartTimeMinute.getValue()) >= Integer.parseInt(choiceBoxEndTimeMinute.getValue()))){
+        LocalDateTime startCheck = TimeConversion.ConvertToTimeObj(startTime);
+        LocalDateTime endCheck = TimeConversion.ConvertToTimeObj(endTime);
+        if (startCheck.isAfter(endCheck) || startCheck.isEqual(endCheck)){
+        //if ((Integer.parseInt(choiceBoxStartTimeHour.getValue()) == Integer.parseInt(choiceBoxEndTimeHour.getValue())) &&
+        //        (Integer.parseInt(choiceBoxStartTimeMinute.getValue()) >= Integer.parseInt(choiceBoxEndTimeMinute.getValue()))){
             ErrorMessage.msg(Lang.print("Appointment")+" "+Lang.print("must")+" "+Lang.print("start")+" "+Lang.print("before")+" "+Lang.print("End")+" "+Lang.print("of")+" "+Lang.print("Appointment")+".");
             return;
         }
-        //If hour starts after the end of appointment, also calls error
-        if ((Integer.parseInt(choiceBoxStartTimeHour.getValue()) > Integer.parseInt(choiceBoxEndTimeHour.getValue()))){
-            ErrorMessage.msg(Lang.print("Appointment")+" "+Lang.print("must")+" "+Lang.print("start")+" "+Lang.print("before")+" "+Lang.print("End")+" "+Lang.print("of")+" "+Lang.print("Appointment")+".");
-            return;
-        }
+
+
+
         //This makes sure that the appointment is between monday through friday, any weekend days are not allowed-------------------------------------------
         LocalDate day = datePickerStartDate.getValue();
         if (String.valueOf(day.getDayOfWeek()).equals("SATURDAY") || String.valueOf(day.getDayOfWeek()).equals("SUNDAY")){

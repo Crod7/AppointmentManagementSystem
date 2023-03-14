@@ -76,12 +76,12 @@ public class LoginController implements Initializable {
                         writer.append("\nUser: " +textFieldUsername.getText()+" || Attempted login at " + loginTime +" || Login Successful!");
                         writer.close();
                         errorCheck = errorCheck + 1;
-
                         username = rs.getString("User_Name");
                         JDBC.openConnection();
                         Appointment.populateList();
                         Customer.populateList();
                         Form.changePageTo(e, "mainMenuViewAll.fxml");
+                        UpcomingAppointmentAlert.upcomingAppointment();
                     } else{
                         if (errorCheck == 0){
                             BufferedWriter writer = new BufferedWriter(new FileWriter("login_activity.txt",true));
