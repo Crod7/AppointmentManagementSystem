@@ -18,9 +18,12 @@ import java.util.ResourceBundle;
 public class AddAppointmentController implements Initializable{
     private Parent root;
     /*Manages the buttons/ labels on screen-------------------------------------------------------------------------------------------*/
+    /** This holds the FXML button for the cancel button.
+     */
     @FXML
     private Button buttonCancel;
-
+    /** This holds the FXML button for the save button.
+     */
     @FXML
     private Button buttonSave;
 
@@ -31,12 +34,16 @@ public class AddAppointmentController implements Initializable{
     /** This list holds the options of the choice boxes that allow you to select which minute the appointment will take place.
      */
     private String[] minuteOptions = {"00","15","30","45"};
+    /** This holds the FXML combo box for the End Time Hour of an appointment.
+     */
     @FXML
     private ChoiceBox<String> choiceBoxEndTimeHour;
-
+    /** This holds the FXML combo box for the End Time Minute of an appointment.
+     */
     @FXML
     private ChoiceBox<String> choiceBoxEndTimeMinute;
-
+    /** This holds the FXML combo box for the Start Time Hour of an appointment.
+     */
     @FXML
     private ChoiceBox<String> choiceBoxStartTimeHour;
 
