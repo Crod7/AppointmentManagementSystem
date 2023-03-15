@@ -10,18 +10,14 @@ import java.time.LocalDateTime;
 public class UpcomingAppointmentAlert {
     public static boolean upcomingAppointment() throws SQLException {
         LocalDateTime currentLocalTime = LocalDateTime.now();
-        System.out.println(currentLocalTime);
         String currentTimeUtc = TimeConversion.ConvertToUtc(currentLocalTime.toLocalDate(), currentLocalTime.getHour(), currentLocalTime.getMinute());
-        System.out.println(currentTimeUtc);
         String localCurrentTime = TimeConversion.ConvertToLocal(currentTimeUtc);
-        System.out.println(localCurrentTime);
         int year = Integer.parseInt(localCurrentTime.substring(0,4));
         int month = Integer.parseInt(localCurrentTime.substring(5,7));
         int day = Integer.parseInt(localCurrentTime.substring(8,10));
         int hour = Integer.parseInt(localCurrentTime.substring(11,13));
         int minute = Integer.parseInt(localCurrentTime.substring(14,16));
         LocalDateTime time = LocalDateTime.of(year, month, day, hour, minute);
-        System.out.println(time);
 
 
 
@@ -37,7 +33,6 @@ public class UpcomingAppointmentAlert {
             int hourDb = Integer.parseInt(localCheckTime.substring(11,13));
             int minuteDb = Integer.parseInt(localCheckTime.substring(14,16));
             LocalDateTime timeDb= LocalDateTime.of(yearDb, monthDb, dayDb, hourDb, minuteDb);
-            System.out.println(timeDb);
 
 
             if (time.isAfter(timeDb.minusMinutes(15)) && time.isBefore(timeDb)){

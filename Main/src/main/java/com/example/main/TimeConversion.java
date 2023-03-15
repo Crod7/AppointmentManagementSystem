@@ -12,10 +12,8 @@ public class TimeConversion {
         int minute = Integer.parseInt(date.substring(14,16));
         LocalDateTime myLDT = LocalDateTime.of(year,month,day,hour,minute,0);
         ZoneId myZoneId = ZoneId.of("UTC");
-        System.out.println(myZoneId);
         ZonedDateTime myZDT = ZonedDateTime.of(myLDT, myZoneId);
         ZoneId utcZoneId = ZoneId.systemDefault();
-        System.out.println(utcZoneId);
         ZonedDateTime utcZDT = ZonedDateTime.ofInstant(myZDT.toInstant(), utcZoneId);
         String result = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(utcZDT);
         return  result;
@@ -28,10 +26,8 @@ public class TimeConversion {
         int minute = Integer.parseInt(date.substring(14,16));
         LocalDateTime myLDT = LocalDateTime.of(year,month,day,hour,minute,0);
         ZoneId myZoneId = ZoneId.systemDefault();
-        System.out.println(myZoneId);
         ZonedDateTime myZDT = ZonedDateTime.of(myLDT, myZoneId);
         ZoneId utcZoneId = ZoneId.of("America/New_York");
-        System.out.println(utcZoneId);
         ZonedDateTime utcZDT = ZonedDateTime.ofInstant(myZDT.toInstant(), utcZoneId);
         String result = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(utcZDT);
         return  result;

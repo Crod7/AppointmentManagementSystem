@@ -270,8 +270,6 @@ public class ModifyAppointmentController implements Initializable{
         LocalDateTime startCheck = TimeConversion.ConvertToTimeObj(startTime);
         LocalDateTime endCheck = TimeConversion.ConvertToTimeObj(endTime);
         if (startCheck.isAfter(endCheck) || startCheck.isEqual(endCheck)){
-            //if ((Integer.parseInt(choiceBoxStartTimeHour.getValue()) == Integer.parseInt(choiceBoxEndTimeHour.getValue())) &&
-            //        (Integer.parseInt(choiceBoxStartTimeMinute.getValue()) >= Integer.parseInt(choiceBoxEndTimeMinute.getValue()))){
             ErrorMessage.msg(Lang.print("Appointment")+" "+Lang.print("must")+" "+Lang.print("start")+" "+Lang.print("before")+" "+Lang.print("End")+" "+Lang.print("of")+" "+Lang.print("Appointment")+".");
             return;
         }
