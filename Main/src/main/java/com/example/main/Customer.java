@@ -120,12 +120,6 @@ public class Customer {
     public static ObservableList<Customer> getAllCustomers(){
         return allCustomers;
     }
-    /** This adds a Customer to the allCustomers list.
-     * @param app This is the customer to be added.
-     */
-    public static void addCustomer(Customer app){
-        allCustomers.add(app);
-    }
     /** This deletes a customer from the allCustomers list.
      * @param selectedCustomer This is the customer to be removed.
      */
@@ -141,7 +135,8 @@ public class Customer {
         Appointment.populateList();
         return true;
     }
-    /** This keeps the database and allcustomers Observable list up to date and in sync with their data.
+    /** This method uses a LAMBDA expression to add a customer to the database and Observable List.
+     * This keeps the database and allcustomers Observable list up to date and in sync with their data.
      */
     public static void populateList(){
         try {
@@ -163,7 +158,9 @@ public class Customer {
                         TimeConversion.ConvertToLocal(rs.getString("last_update")),
                         rs.getString("last_updated_by"),
                         rs.getInt("division_id"));
-                addCustomer(appObject);
+                //THIS IS THE LAMBDA EXPRESSION
+                MyInterface addCustomer = () -> allCustomers.add(appObject);
+                addCustomer.run();
             }
         }catch (SQLException se){
 

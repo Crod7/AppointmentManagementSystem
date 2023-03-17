@@ -288,16 +288,7 @@ public class AddAppointmentController implements Initializable{
             return;
         }
 
-
         //====================================================================================================================================================================
-
-
-
-
-
-
-
-
 
         //Finally this addToQueryDB method inserts a row into the database---------------------------------------------------------
         ResultSet rs = Query.addToQueryDB(Appointment.generateAppointmentId(), textFieldTitle.getText(), textFieldDescription.getText(), textFieldLocation.getText(), textFieldType.getText(), startTime,

@@ -265,12 +265,6 @@ public class Appointment {
     public static ObservableList<Appointment> getAllAppointmentsFiltered(){
         return allAppointmentsFiltered;
     }
-    /** Adds an appointment to the Observable List.
-     * @param app This is the appointment object to be added.
-     */
-    public static void addAppointment(Appointment app){
-        allAppointments.add(app);
-    }
     /** Deletes an appointment from the Observable List.
      * @param selectedAppointment This is the appointment object to be deleted.
      */
@@ -295,7 +289,7 @@ public class Appointment {
         Appointment.populateList();
         return true;
     }
-    /** This is called to refresh the database appointments with the UI Observable List. Calling this will
+    /** Uses a LAMBDA expression to refresh the database appointments with the UI Observable List. Calling this will
      * keep the List up to date. This is used for keeping table views up to date and accurate. If this is not called,
      * the UI and database will not have matching data.
      */
@@ -334,7 +328,9 @@ public class Appointment {
                         rs.getInt("customer_id"),
                         rs.getInt("user_id"),
                         contactNameFound);
-                addAppointment(appObject);
+                //THIS IS THE LAMBDA EXPRESSION
+                MyInterface addAppointment = () -> allAppointments.add(appObject);
+                addAppointment.run();
             }
         }catch (SQLException se){
 
