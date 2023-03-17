@@ -8,7 +8,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+/** This class controls the Main Menu View All page.
+ */
 public class MainMenuViewAllController implements Initializable {
     /*Manages the variables of the buttons and labels on screen-------------------------------------------------------------------------------------------*/
     /** This button will take the user to the add appointment page.

@@ -1,8 +1,15 @@
 package com.example.main;
 
 import java.time.*;
-
+/** This class manages the business hours set in Eastern Time.
+ */
 public class BusinessHours {
+    /** This method will take a starting and ending time of an appointment and convert it to EST to see if falls within
+     * the business hours. If it doesn't the appointment will not be added.
+     * @param startApp2 This is the start date/time of the appointment.
+     * @param endApp2 This is the end date/time of the appointment.
+     * @return a true value if the appointment cannot be added due to constraints, false if it falls within business hours
+     */
     public static boolean checkIfOpen(String startApp2, String endApp2){
         String startApp3 = TimeConversion.ConvertToLocal(startApp2);
         String startApp = TimeConversion.ConvertToESTFromLocal(startApp3);

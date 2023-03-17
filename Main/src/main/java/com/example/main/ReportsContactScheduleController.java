@@ -8,7 +8,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+/** This class controls the Reports Contact Schedule Page.
+ */
 public class ReportsContactScheduleController implements Initializable {
     /*Manages the buttons/ labels on screen-------------------------------------------------------------------------------------------*/
     /** This variable manages the button so, it can be referenced when selecting this button to change the page.

@@ -8,7 +8,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+/** This class controls the Main Menu View By Month page.
+ */
 public class MainMenuViewByMonthController implements Initializable {
     /*Manages the variables of the buttons and labels on screen-------------------------------------------------------------------------------------------*/
     /** This menu button will allow the user to select which month to view.

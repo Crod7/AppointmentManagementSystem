@@ -6,8 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
+/** This class controls a dialog box letting the user know if any appointment is upcoming.
+ */
 public class UpcomingAppointmentAlert {
+    /** This method is called after the user is logged in to check if any appointment
+     * will begin within the next 15 minutes in the user's local time.
+     */
     public static boolean upcomingAppointment() throws SQLException {
         LocalDateTime currentLocalTime = LocalDateTime.now();
         String currentTimeUtc = TimeConversion.ConvertToUtc(currentLocalTime.toLocalDate(), currentLocalTime.getHour(), currentLocalTime.getMinute());
@@ -18,8 +22,6 @@ public class UpcomingAppointmentAlert {
         int hour = Integer.parseInt(localCurrentTime.substring(11,13));
         int minute = Integer.parseInt(localCurrentTime.substring(14,16));
         LocalDateTime time = LocalDateTime.of(year, month, day, hour, minute);
-
-
 
 
         ResultSet rs = Query.queryDB("SELECT * FROM appointments");

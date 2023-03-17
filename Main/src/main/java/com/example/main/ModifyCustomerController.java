@@ -12,87 +12,139 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
-
+/** When the Modify Customer page is initialized this method will run. It fills columns of the table and
+ * other data to combo boxes and text fields. It will also translate any text to either French or English depending on
+ * system default.
+ */
 public class ModifyCustomerController implements Initializable {
-
+    /** This represents the table of appointments associated with the customer being modified.
+     */
     @FXML
     private TableView<Appointment> tableViewAppointment;
+    /** This represents the column appointment ID.
+     */
     @FXML
     private TableColumn<Appointment, Integer> appointmentIdColumn;
-
+    /** This represents the column start date of the appointment.
+     */
     @FXML
     private TableColumn<Appointment, String> appointmentStartColumn;
-
+    /** This button holds the cancel button.
+     */
     @FXML
     private Button buttonCancel;
-
+    /** This button holds the save button.
+     */
     @FXML
     private Button buttonSave;
+    /** This button holds the delete button.
+     */
     @FXML
     private Button buttonDelete;
-
+    /** This label holds the address text.
+     */
     @FXML
     private Label labelAddress;
-
+    /** This label holds the countries text.
+     */
     @FXML
     private Label labelCountries;
-
+    /** This label holds the customer ID text.
+     */
     @FXML
     private Label labelCustomerId;
-
+    /** This label holds the customer name text.
+     */
     @FXML
     private Label labelCustomerName;
-
+    /** This label holds the divisions text.
+     */
     @FXML
     private Label labelDivisions;
-
+    /** This label holds the header text.
+     */
     @FXML
     private Label labelHeader;
-
+    /** This label holds the phone number text.
+     */
     @FXML
     private Label labelPhoneNumber;
-
+    /** This label holds the postal code text.
+     */
     @FXML
     private Label labelPostalCode;
+    /** This label holds the Sub-Header text.
+     */
     @FXML
     private Label labelSubHeader;
+    /** This is a combo box for countries.
+     */
     @FXML
     private ComboBox menuButtonCountries;
-
+    /** This is a combo box for divisions.
+     */
     @FXML
     private ComboBox menuButtonDivisions;
-
+    /** This is a text field for the address input.
+     */
     @FXML
     private TextField textFieldAddress;
-
+    /** This is a text field for the customer id input.
+     */
     @FXML
     private TextField textFieldCustomerId;
-
+    /** This is a text field for the customer name input.
+     */
     @FXML
     private TextField textFieldCustomerName;
-
+    /** This is a text field for the phone number input.
+     */
     @FXML
     private TextField textFieldPhoneNumber;
-
+    /** This is a text field for the postal code input.
+     */
     @FXML
     private TextField textFieldPostalCode;
-
+    /** This is a string holding the customer ID to later be parsed into an integer.
+     */
     public String country_id;
+    /** This is the selected country.
+     */
     private int selectedCountry;
-    Customer selectedCustomerToUpdateAppointmentList;
 
     //All data preloaded from the view customers page-------------
+    /** This variable holds the Customer ID data which was passed down from the View Customer Page.
+     */
     public static int customerIdData;
+    /** This variable holds the Customer Name data which was passed down from the View Customer Page.
+     */
     public static String customerNameData;
+    /** This variable holds the Address data which was passed down from the View Customer Page.
+     */
     public static String addressData;
+    /** This variable holds the Postal Code data which was passed down from the View Customer Page.
+     */
     public static String postalCodeData;
+    /** This variable holds the Phone Number data which was passed down from the View Customer Page.
+     */
     public static String phoneData;
+    /** This variable holds the Created Date data which was passed down from the View Customer Page.
+     */
     public static String createDateData;
+    /** This variable holds the Created By data which was passed down from the View Customer Page.
+     */
     public static String createdByData;
+    /** This variable holds the Division ID data which was passed down from the View Customer Page.
+     */
     public static int divisionIdData;
+    /** This is the selected customer that is being modified currently.
+     */
     public static Customer selectedCus;
 
-
+    /** When the Add Appointment page is initialized this method will run. It fills columns of the table and
+     * other data to combo boxes and text fields. It will also translate any text to either French or English depending on
+     * system default.
+     */
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // This loads up the options for the choice box---------------------------------------------------------
         // This sets the country from the current customer
@@ -135,6 +187,8 @@ public class ModifyCustomerController implements Initializable {
         appointmentStartColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("start"));
         tableViewAppointment.setItems(Appointment.getAllAppointmentsFiltered());
     }
+    /** Using the country_id, we get the int associated with the string matching the country name.
+     */
     public void countrySelectedStart() {
         try {
             country_id = String.valueOf(menuButtonCountries.getSelectionModel().getSelectedItem());
@@ -151,6 +205,8 @@ public class ModifyCustomerController implements Initializable {
 
         }
     }
+    /** This method determines which country was selected.
+     */
     public void countrySelected(ActionEvent e) throws IOException {
         try {
             country_id = String.valueOf(menuButtonCountries.getSelectionModel().getSelectedItem());
@@ -168,9 +224,13 @@ public class ModifyCustomerController implements Initializable {
 
         }
     }
+    /** This method is assigned to a button and will take the user back to the main menu page.
+     */
     public void cancelButtonClick(ActionEvent e) throws IOException {
         Form.changePageTo(e, "mainMenuViewCustomers.fxml");
     }
+    /** This method is assigned to a button and will save the customer information if valid.
+     */
     public void saveButtonClick(ActionEvent e) throws IOException {
         // This will check to see if all fields hold data, as any empty text fields will throw an error----------------------
         if (textFieldCustomerName.getText().equals("")){
@@ -218,7 +278,10 @@ public class ModifyCustomerController implements Initializable {
         Form.changePageTo(e, "mainMenuViewCustomers.fxml");
 
     }
-
+    /** This method will determine which division ID is selected.
+     * @param division The name of the division.
+     * @return the id associated with the division name.
+     */
     public int selectDivision(String division) throws IOException {
         int result = 0;
         for ( FirstLevelDivisions x: FirstLevelDivisions.getAllDivisions()){
@@ -228,6 +291,10 @@ public class ModifyCustomerController implements Initializable {
         }
         return result;
     }
+    /** This will assign a default selection to the division button.
+     * @param division this is the division id int.
+     * @return the name of the division.
+     */
     public String selectDivisionStart(int division) throws IOException {
         String result = "";
             for ( FirstLevelDivisions x: FirstLevelDivisions.getAllDivisions()){
@@ -237,6 +304,8 @@ public class ModifyCustomerController implements Initializable {
             }
             return result;
     }
+    /** This will delete an appointment.
+     */
     public void deleteAppointmentButtonClick(ActionEvent e) throws IOException {
         Appointment selectedAppointment = tableViewAppointment.getSelectionModel().getSelectedItem();
         if (selectedAppointment != null) {

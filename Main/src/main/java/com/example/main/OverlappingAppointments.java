@@ -4,8 +4,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-
+/** This class is used to determine if appointments being added or modify interfere with
+ * existing appointments in the database.
+ */
 public class OverlappingAppointments {
+    /** This method will check to see if the appointment being added doesn't interfere with another appointment.
+     * It will go through the database comparing each appointment times with the new appointment's time.
+     * @param startTime This is the start time of the appointment.
+     * @param endTime This is the end time of the appointment.
+     */
     public static boolean checkIfAvailableAddAppointment(String startTime, String endTime) throws SQLException {
 
         int year = Integer.parseInt(startTime.substring(0,4));
@@ -51,7 +58,16 @@ public class OverlappingAppointments {
         //Appointment can be added as no interferences were found
         return false;
     }
-
+    /** This method will check to see if the appointment being added doesn't interfere with another appointment.
+     * It will go through the database comparing each appointment times with the new appointment's time. This time
+     * we include the id of the appointment so that when the database returns an appointment with the same id, it will
+     * skip that appointment. This is because comparing an appointment to itself will cause the method to
+     * think that time isn't available. But a modified appointment can use its own time as it's not interfering with
+     * another appointment.
+     * @param startTime This is the start time of the appointment.
+     * @param endTime This is the end time of the appointment.
+     * @param id This is the id of the appointment being modified.
+     */
     public static boolean checkIfAvailableModifyAppointment(String startTime, String endTime, int id) throws SQLException {
 
         int year = Integer.parseInt(startTime.substring(0,4));

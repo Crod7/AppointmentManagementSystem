@@ -8,7 +8,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+/** This class controls the Main Menu View By Customer page.
+ */
 public class MainMenuViewCustomersController implements Initializable {
     /*Manages the variables of the buttons and labels on screen-------------------------------------------------------------------------------------------*/
     /** This button will take the user to the add appointment page.
@@ -43,29 +44,34 @@ public class MainMenuViewCustomersController implements Initializable {
      */
     @FXML
     private Label labelAppointmentSchedule;
+    /** This label holds text for the sub-header.
+     */
     @FXML
     private Label labelSubHeader;
 
     /*Manages what columns go into table------------------------------------------------------------------------------------------------------------------------*/
-    @FXML
-    private TableView<Appointment> tableviewAppointmentTable;
-    @FXML
-    private TableColumn<Appointment, Integer> appointmentIdColumn;
-    @FXML
-    private TableColumn<Appointment, String> appointmentStartColumn;
+    /** This variable holds a column for the customer object, the address column.
+     */
     @FXML
     private TableColumn<Customer, String> addressColumn;
+    /** This variable holds a column for the customer object, the customer ID column.
+     */
     @FXML
     private TableColumn<Customer, Integer> customerIdColumn;
+    /** This variable holds a column for the customer object, the customer name column.
+     */
     @FXML
     private TableColumn<Customer, String> customerNameColumn;
-
+    /** This variable holds a column for the customer object, division ID column.
+     */
     @FXML
     private TableColumn<Customer, Integer> divisionIdColumn;
-
+    /** This variable holds a column for the customer object, the phone number column.
+     */
     @FXML
     private TableColumn<Customer, String> phoneColumn;
-
+    /** This variable holds a column for the customer object, the postal code column.
+     */
     @FXML
     private TableColumn<Customer, String> postalColumn;
     /** This variable holds the table view that will represent the appointment data and it's columns on the main page.

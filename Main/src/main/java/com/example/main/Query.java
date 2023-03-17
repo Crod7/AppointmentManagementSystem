@@ -3,22 +3,16 @@ package com.example.main;
 
 import java.sql.*;
 import java.time.LocalDateTime;
-
+/** This class controls the queries made to the database.
+ */
 public class Query {
-    private static final String protocol = "jdbc";
-    private static final String vendor = ":mysql:";
-    private static final String location = "//localhost/";
-    private static final String databaseName = "client_schedule";
-    private static final String jdbcUrl = protocol + vendor + location + databaseName + "?connectionTimeZone = SERVER"; // LOCAL
-    private static final String driver = "com.mysql.cj.jdbc.Driver"; // Driver reference
-    private static final String userName = "sqlUser"; // Username
-    private static String password = "Passw0rd!"; // Password
-    public static Connection connection;  // Connection Interface
-
+    /** This method takes a query in the form of a string and uses it to query the database.
+     * @param queryCode This is the string that will be used to query the database.
+     */
     public static ResultSet queryDB(String queryCode){
         try {
-            connection = DriverManager.getConnection(jdbcUrl, userName, password);
-            Statement stmt = connection.createStatement();
+            JDBC.connection = DriverManager.getConnection(JDBC.jdbcUrl, JDBC.userName, JDBC.password);
+            Statement stmt = JDBC.connection.createStatement();
             String query = queryCode;
             ResultSet rs = stmt.executeQuery(query);
             return rs;
@@ -27,10 +21,27 @@ public class Query {
             return rs;
         }
     }
+    /** This method takes arguments and uses them to add a new appointment row in the database. This method is also
+     * used when modifying appointments.
+     * @param id the appointment_id to be added.
+     * @param title the title of the appointment.
+     * @param desc the description of the appointment.
+     * @param locate the location of the appointment.
+     * @param type the type of appointment being added.
+     * @param startDate the date and time the appointment will begin.
+     * @param endDate the date and time the appointment will end.
+     * @param create_date the date and time the appointment was created.
+     * @param created_by the user that created the appointment initially.
+     * @param last_update the last time this appointment has been updated.
+     * @param last_updated_by the last user to have updated this appointment.
+     * @param customer_id the customer ID linked to this appointment.
+     * @param contact_id the contact that can be called for this appointment.
+     * @param user_id the user ID that created this appointment.
+     */
     public static ResultSet addToQueryDB(int id, String title, String desc, String locate, String type, String startDate, String endDate, String create_date, String created_by, String last_update, String last_updated_by, int customer_id, int user_id, int contact_id){
         try {
-            connection = DriverManager.getConnection(jdbcUrl, userName, password);
-            Statement stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            JDBC.connection = DriverManager.getConnection(JDBC.jdbcUrl, JDBC.userName, JDBC.password);
+            Statement stmt = JDBC.connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             String query = "SELECT * FROM appointments";
             ResultSet rs = stmt.executeQuery(query);
             rs.last();
@@ -57,10 +68,22 @@ public class Query {
             return rs;
         }
     }
+    /** This method takes arguments and uses them to add a new customer row in the database.
+     * @param id the customer_id to be added.
+     * @param name the customer name to be added.
+     * @param phone the customer phone number.
+     * @param address the customer address to be added.
+     * @param division_id the division_id linked to the customer.
+     * @param postalCode the postal code linked to the customer.
+     * @param create_date the date and time the customer was created.
+     * @param created_by the user that created the customer initially.
+     * @param last_update the last time this customer has been updated.
+     * @param last_updated_by the last user to have updated this customer.
+     */
     public static ResultSet addCustomerToQueryDB(int id, String name, String address, String postalCode, String phone, String create_date, String created_by, String last_update, String last_updated_by, int division_id){
         try {
-            connection = DriverManager.getConnection(jdbcUrl, userName, password);
-            Statement stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            JDBC.connection = DriverManager.getConnection(JDBC.jdbcUrl, JDBC.userName, JDBC.password);
+            Statement stmt = JDBC.connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             String query = "SELECT * FROM customers";
             ResultSet rs = stmt.executeQuery(query);
             rs.last();
@@ -83,10 +106,22 @@ public class Query {
             return rs;
         }
     }
+    /** This method takes arguments and uses them to modify the matching customer row in the database.
+     * @param id the customer_id to be added.
+     * @param name the customer name to be added.
+     * @param phone the customer phone number.
+     * @param address the customer address to be added.
+     * @param divisionId the division_id linked to the customer.
+     * @param postal the postal code linked to the customer.
+     * @param createDate the date and time the customer was created.
+     * @param createdBy the user that created the customer initially.
+     * @param update the last time this customer has been updated.
+     * @param updatedBy the last user to have updated this customer.
+     */
     public static void modifyCustomerToQueryDB(int id, String name, String address, String postal, String phone, String createDate, String createdBy, String update, String updatedBy, int divisionId){
         try {
-            connection = DriverManager.getConnection(jdbcUrl, userName, password);
-            Statement stmt = connection.createStatement();
+            JDBC.connection = DriverManager.getConnection(JDBC.jdbcUrl, JDBC.userName, JDBC.password);
+            Statement stmt = JDBC.connection.createStatement();
             String sql ="UPDATE customers SET customer_name = '" + name + "' WHERE customer_id = " + (id);
             int rowsAffected = stmt.executeUpdate(sql);
             sql ="UPDATE customers SET address = '" + address + "' WHERE customer_id = " + (id);
@@ -110,12 +145,13 @@ public class Query {
         } catch (SQLException se){
         }
     }
-
-
+    /** This method is used when the user needs to delete a row from the database.
+     * @param queryCode This is the string that will be used to query the database.
+     */
     public static ResultSet deleteQueryDB(String queryCode){
         try {
-            connection = DriverManager.getConnection(jdbcUrl, userName, password);
-            Statement stmt = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+            JDBC.connection = DriverManager.getConnection(JDBC.jdbcUrl, JDBC.userName, JDBC.password);
+            Statement stmt = JDBC.connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
             ResultSet rs = stmt.executeQuery(queryCode);
             rs.absolute(1);
             rs.deleteRow();

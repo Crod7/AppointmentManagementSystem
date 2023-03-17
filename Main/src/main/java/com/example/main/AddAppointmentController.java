@@ -14,9 +14,9 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
-
+/** This class handles the Add Appointment form page.
+ */
 public class AddAppointmentController implements Initializable{
-    private Parent root;
     /*Manages the buttons/ labels on screen-------------------------------------------------------------------------------------------*/
     /** This holds the FXML button for the cancel button.
      */
@@ -46,71 +46,95 @@ public class AddAppointmentController implements Initializable{
      */
     @FXML
     private ChoiceBox<String> choiceBoxStartTimeHour;
-
+    /** This holds the FXML combo box for the Start Time Minute of an appointment.
+     */
     @FXML
     private ChoiceBox<String> choiceBoxStartTimeMinute;
-
+    /** This class handles the Day on which the appointment will end.
+     */
     @FXML
     private DatePicker datePickerEndDate;
-
+    /** This class handles the Day on which the appointment will begin.
+     */
     @FXML
     private DatePicker datePickerStartDate;
-
+    /** This is a label that holds text and manages translation of the Appointment ID text.
+     */
     @FXML
     private Label labelAppointmentId;
-
+    /** This is a label that holds text and manages translation of the Contact ID text.
+     */
     @FXML
     private Label labelContactId;
-
+    /** This is a label that holds text and manages translation of the Customer ID text.
+     */
     @FXML
     private Label labelCustomerId;
-
+    /** This is a label that holds text and manages translation of the Description.
+     */
     @FXML
     private Label labelDescription;
-
+    /** This is a label that holds text and manages translation of the End Date label.
+     */
     @FXML
     private Label labelEndDate;
-
+    /** This is a label that holds text and manages translation of the End Time label.
+     */
     @FXML
     private Label labelEndTime;
-
+    /** This is a label that holds text and manages translation of the Header label.
+     */
     @FXML
     private Label labelHeader;
-
+    /** This is a label that holds text and manages translation of the Location text field label.
+     */
     @FXML
     private Label labelLocation;
-
+    /** This is a label that holds text and manages translation of the Start Date label.
+     */
     @FXML
     private Label labelStartDate;
-
+    /** This is a label that holds text and manages translation of the Start Time label.
+     */
     @FXML
     private Label labelStartTime;
-
+    /** This is a label that holds text and manages translation of the Title text field label.
+     */
     @FXML
     private Label labelTitle;
-
+    /** This is a label that holds text and manages translation of the Type text field label.
+     */
     @FXML
     private Label labelType;
-
+    /** This is a Combo Box that lets the user select a Contact ID.
+     */
     @FXML
     private ComboBox menuButtonContactId;
+    /** This variable represents which Contact was selected.
+     */
     private int selectedContact;
-
+    /** This is a menu button that holds Customer ID information.
+     */
     @FXML
     private MenuButton menuButtonCustomerId;
-
+    /** This is a text field that holds the Appointment ID.
+     */
     @FXML
     private TextField textFieldAppointmentId;
-
+    /** This is a text field that holds the Description.
+     */
     @FXML
     private TextField textFieldDescription;
-
+    /** This is a text field that holds the Location string.
+     */
     @FXML
     private TextField textFieldLocation;
-
+    /** This is a text field that holds the Title.
+     */
     @FXML
     private TextField textFieldTitle;
-
+    /** This is a text field that holds the Type string.
+     */
     @FXML
     private TextField textFieldType;
 
@@ -120,15 +144,23 @@ public class AddAppointmentController implements Initializable{
     /** This variable holds which customer this appointment will belong to.
      */
     private Customer selectedCustomer;
-
     // Manages the table of customers, the user can select which customer this appointment is for ------------------
+    /** This variable holds a column containing the Customer ID date.
+     */
     @FXML
     private TableColumn<Customer, Integer> customerIdColumn;
+    /** This variable holds a column containing the Customer Name date.
+     */
     @FXML
     private TableColumn<Customer, String> customerNameColumn;
+    /** This variable holds the table that holds the columns for the Customer Array List.
+     */
     @FXML
     private TableView<Customer> tableViewCustomerTable;
-
+    /** When the Add Appointment page is initialized this method will run. It fills columns of the table and
+     * other data to combo boxes and text fields. It will also translate any text to either French or English depending on
+     * system default.
+     */
     public void initialize(URL url, ResourceBundle resourceBundle){
         // This loads up the options for the choice box---------------------------------------------------------
         choiceBoxEndTimeHour.getItems().addAll(hourOptions);
@@ -165,7 +197,8 @@ public class AddAppointmentController implements Initializable{
         textFieldAppointmentId.setText(String.valueOf(Appointment.generateAppointmentId()));
     }
 
-
+    /** Uses the current contact selected to set the selectedContact variable.
+     */
     public void selectContact(ActionEvent e){
         try {
             contact_id = String.valueOf(menuButtonContactId.getSelectionModel().getSelectedItem());
@@ -179,6 +212,10 @@ public class AddAppointmentController implements Initializable{
 
         }
     }
+    /** This method will save the appointment to the database. The method will go through a series of error checks to make
+     * sure that the appointment being added will cause no issues. If any check is failed the appointment will not be added and the user will get
+     * a message informing them why it failed to add.
+     */
     public void saveButtonClick(ActionEvent e) throws IOException, SQLException {
         // This will check to see if all fields hold data, as any empty text fields will throw an error----------------------
         if (textFieldTitle.getText().equals("")){
@@ -269,11 +306,13 @@ public class AddAppointmentController implements Initializable{
         Appointment.populateList();
         Form.changePageTo(e, "mainMenuViewAll.fxml");
     }
-
+    /** This method is assigned to a button and will take the user back to the main menu page.
+     */
     public void cancelButtonClick(ActionEvent e) throws IOException{
         Form.changePageTo(e, "mainMenuViewAll.fxml");
     }
-
+    /** This method is assigned to a button and will allow the user to select a customer to assign to an appointment.
+     */
     public int selectCustomer(ActionEvent e) throws IOException {
         selectedCustomer = tableViewCustomerTable.getSelectionModel().getSelectedItem();
         if (selectedCustomer != null) {

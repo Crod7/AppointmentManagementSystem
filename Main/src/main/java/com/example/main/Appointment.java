@@ -12,26 +12,74 @@ import java.sql.Statement;
 import java.time.LocalDate;
 
 import static com.example.main.JDBC.connection;
-
+/** This class manages the Appointment object.
+ */
 public class Appointment {
+    /** This ObservableList holds all appointments in the database currently.
+     */
     private static ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
+    /** This ObservableList holds appointments that have been filtered with certain conditions. These condition vary
+     * depending on how and where that method is called.
+     */
     private static ObservableList<Appointment> allAppointmentsFiltered = FXCollections.observableArrayList();
-
+    /** This variable holds the Appointment ID integer.
+     */
     private int appointmentId;
+    /** This variable holds the Title string.
+     */
     private String title;
+    /** This variable holds the Description string.
+     */
     private String description;
+    /** This variable holds the Location string.
+     */
     private String location;
+    /** This variable holds the Type string.
+     */
     private String type;
+    /** This variable holds the Start date string.
+     */
     private String start;
+    /** This variable holds the End date string.
+     */
     private String end;
+    /** This variable holds the Created date string.
+     */
     private String createDate;
+    /** This variable holds the Created by string.
+     */
     private String createdBy;
+    /** This variable holds the Last Updated string.
+     */
     private String lastUpdate;
+    /** This variable holds the Last Updated by string.
+     */
     private String lastUpdatedBy;
+    /** This variable holds the Customer ID integer.
+     */
     private int customerId;
+    /** This variable holds the User ID integer.
+     */
     private int userId;
+    /** This variable holds the Contact Name string.
+     */
     private String contactName;
-
+    /** This is the constructor for the Appointment objects.
+     * @param appointmentId A unique Identifier integer.
+     * @param contactName Holds the name of the contact who is responsible for this appointment.
+     * @param createDate The exact time the appointment was first created.
+     * @param createdBy Which user created this appointment.
+     * @param customerId A unique Identifier for which customer is assigned to this appointment.
+     * @param description A short collection of text to describe the appointment.
+     * @param lastUpdate A date when this appointment was last updated.
+     * @param end When this appointment will end.
+     * @param start When this appointment will begin.
+     * @param location The address where this appointment will take place.
+     * @param title The title of this appointment.
+     * @param type What category of appointment this falls into.
+     * @param lastUpdatedBy The last user to update this appointment, not the user who created it.
+     * @param userId The user associated with the appointment.
+     */
     public Appointment(int appointmentId, String title, String description, String location, String type, String start, String end, String createDate, String createdBy, String lastUpdate, String lastUpdatedBy, int customerId, int userId, String contactName) {
         this.appointmentId = appointmentId;
         this.title = title;
@@ -48,129 +96,184 @@ public class Appointment {
         this.userId = userId;
         this.contactName = contactName;
     }
-
+    /** This method is a get method.
+     * @return This appointment's ID.
+     */
     public int getAppointmentId() {
         return appointmentId;
     }
-
+    /** This method sets the Appointment ID.
+     */
     public void setAppointmentId(int appointmentId) {
         this.appointmentId = appointmentId;
     }
+    /** This method is a get method.
+     * @return This appointment's Title.
+     */
 
     public String getTitle() {
         return title;
     }
-
+    /** This method sets the Title.
+     */
     public void setTitle(String title) {
         this.title = title;
     }
-
+    /** This method is a get method.
+     * @return This appointment's Description.
+     */
     public String getDescription() {
         return description;
     }
-
+    /** This method sets the Description.
+     */
     public void setDescription(String description) {
         this.description = description;
     }
-
+    /** This method is a get method.
+     * @return This appointment's Location.
+     */
     public String getLocation() {
         return location;
     }
-
+    /** This method sets the Location.
+     */
     public void setLocation(String location) {
         this.location = location;
     }
-
+    /** This method is a get method.
+     * @return This appointment's Type.
+     */
     public String getType() {
         return type;
     }
-
+    /** This method sets the Type.
+     */
     public void setType(String type) {
         this.type = type;
     }
-
+    /** This method is a get method.
+     * @return This appointment's Start Date.
+     */
     public String getStart() {
         return start;
     }
-
+    /** This method sets the Start Date.
+     */
     public void setStart(String start) {
         this.start = start;
     }
-
+    /** This method is a get method.
+     * @return This appointment's End Date.
+     */
     public String getEnd() {
         return end;
     }
-
+    /** This method sets the End Date.
+     */
     public void setEnd(String end) {
         this.end = end;
     }
-
+    /** This method is a get method.
+     * @return This appointment's Create Date.
+     */
     public String getCreateDate() {
         return createDate;
     }
-
+    /** This method sets the Create Date.
+     */
     public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
-
+    /** This method is a get method.
+     * @return Who created this appointment.
+     */
     public String getCreatedBy() {
         return createdBy;
     }
-
+    /** This method sets the Created by string.
+     */
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
-
+    /** This method is a get method.
+     * @return When this was last updated.
+     */
     public String getLastUpdate() {
         return lastUpdate;
     }
-
+    /** This method sets the Last Updated string.
+     */
     public void setLastUpdate(String lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
-
+    /** This method is a get method.
+     * @return Last user to update this appointment.
+     */
     public String getLastUpdatedBy() {
         return lastUpdatedBy;
     }
-
+    /** This method sets the Last Updated by string.
+     */
     public void setLastUpdatedBy(String lastUpdatedBy) {
         this.lastUpdatedBy = lastUpdatedBy;
     }
-
+    /** This method is a get method.
+     * @return This appointment's Customer ID.
+     */
     public int getCustomerId() {
         return customerId;
     }
-
+    /** This method sets the Customer ID.
+     */
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
-
+    /** This method is a get method.
+     * @return This appointment's User ID.
+     */
     public int getUserId() {
         return userId;
     }
-
+    /** This method sets the User ID.
+     */
     public void setUserId(int userId) {
         this.userId = userId;
     }
-
+    /** This method is a get method.
+     * @return This appointment's Contact Name.
+     */
     public String getContactName() {
         return contactName;
     }
-
+    /** This method sets the Contact Name.
+     */
     public void setContactName(String contactName) {
         this.contactName = contactName;
     }
 
     //The code below manages the methods used by this class --------------------------------------------------------
+    /** This returns the observable list.
+     * @return all the appointments in the Observable List.
+     */
     public static ObservableList<Appointment> getAllAppointments(){
         return allAppointments;
     }
+    /** This returns the observable list.
+     * @return all the filtered appointments in the Observable List.
+     */
     public static ObservableList<Appointment> getAllAppointmentsFiltered(){
         return allAppointmentsFiltered;
     }
+    /** Adds an appointment to the Observable List.
+     * @param app This is the appointment object to be added.
+     */
     public static void addAppointment(Appointment app){
         allAppointments.add(app);
     }
+    /** Deletes an appointment from the Observable List.
+     * @param selectedAppointment This is the appointment object to be deleted.
+     */
     public static boolean deleteAppointment(Appointment selectedAppointment){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(Lang.print("Deleted"));
@@ -183,12 +286,19 @@ public class Appointment {
         Appointment.populateList();
         return true;
     }
+    /** Updates an appointment on the Observable List.
+     * @param selectedAppointment This is the appointment object to be updated.
+     */
     public static boolean updateAppointment(Appointment selectedAppointment){
         Query.deleteQueryDB("SELECT * FROM appointments WHERE appointment_id =" + selectedAppointment.getAppointmentId());
         allAppointments.remove(selectedAppointment);
         Appointment.populateList();
         return true;
     }
+    /** This is called to refresh the database appointments with the UI Observable List. Calling this will
+     * keep the List up to date. This is used for keeping table views up to date and accurate. If this is not called,
+     * the UI and database will not have matching data.
+     */
     public static void populateList(){
         try {
             allAppointments.clear();
@@ -230,7 +340,9 @@ public class Appointment {
 
         }
     }
-
+    /** Generates a unique Appointment ID.
+     * @returns a unique number to be used as an Appointment ID.
+     */
     public static int generateAppointmentId(){
         try{
             ResultSet rs = Query.queryDB("SELECT appointment_id FROM appointments");
@@ -245,7 +357,9 @@ public class Appointment {
             return 0;
         }
     }
-    /** This method will search through the database and find the user_ID associated with the current user logged into the system and attach their respective ID to the appointment.
+    /** This method will search through the database and find the user_ID associated with the current user logged into the
+     * system and attach their respective ID to the appointment.
+     * @returns the current user's ID.
      */
     public static int autoUserIdGenerator(){
         try {
@@ -261,7 +375,9 @@ public class Appointment {
             return 0;
         }
     }
-
+    /** This will create the filtered Observable List with the condition being which month is selected.
+     * @param obj This obj represents a string that will determine what month to filter for.
+     */
     public static void filterByMonth(String obj){
         allAppointmentsFiltered.clear();
         for (Appointment x : getAllAppointments()){
@@ -273,6 +389,10 @@ public class Appointment {
             }
         }
     }
+    /** This will create the filtered Observable List with the condition being which month and week is selected.
+     * @param month This month represents a string that will determine what month to filter for.
+     * @param week This week will also be used in combination with month to determine which appointments to filter.
+     */
     public static void filterByWeek(String month, String week){
         allAppointmentsFiltered.clear();
         for (Appointment x : getAllAppointments()){
@@ -311,6 +431,9 @@ public class Appointment {
             }
         }
     }
+    /** This will create the filtered Observable List with the condition being which customer is selected.
+     * @param obj This obj represents a string that will determine what customer to filter for.
+     */
     public static void filterByCustomer(Customer obj){
         allAppointmentsFiltered.clear();
         for (Appointment x : getAllAppointments()){
@@ -322,6 +445,9 @@ public class Appointment {
             }
         }
     }
+    /** This will create the filtered Observable List with the condition being which contact is selected.
+     * @param obj This obj represents a string that will determine what contact to filter for.
+     */
     public static void filterByContact(Contact obj){
         allAppointmentsFiltered.clear();
         for (Appointment x : getAllAppointments()){
@@ -330,6 +456,9 @@ public class Appointment {
             }
         }
     }
+    /** This will check to see if any appointment is linked to a selected customer.
+     * @param obj This obj represents the customer we are checking to see if they have any appointments linked to them.
+     */
     public static int checkIfCustomerIsEmpty(Customer obj){
         int result = 0;
         for (Appointment x : getAllAppointments()){

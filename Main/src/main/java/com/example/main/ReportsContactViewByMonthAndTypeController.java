@@ -10,11 +10,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.Month;
 import java.util.ResourceBundle;
-
+/** This class controls the Reports Contact View By Month And Type Page.
+ */
 public class ReportsContactViewByMonthAndTypeController implements Initializable {
     /*Manages the buttons/ labels on screen-------------------------------------------------------------------------------------------*/
-
-
     @FXML
     private Button goButton;
     /** This variable manages the button so, it can be referenced when selecting this button to change the page.

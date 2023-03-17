@@ -16,13 +16,16 @@ import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 import static java.lang.Integer.parseInt;
-
+/** This class controls the modify appointment page.
+ */
 public class ModifyAppointmentController implements Initializable{
-    private Parent root;
     /*Manages the buttons/ labels on screen-------------------------------------------------------------------------------------------*/
+    /** This is the cancel button.
+     */
     @FXML
     private Button buttonCancel;
-
+    /** This is the save button.
+     */
     @FXML
     private Button buttonSave;
 
@@ -33,93 +36,144 @@ public class ModifyAppointmentController implements Initializable{
     /** This list holds the options of the choice boxes that allow you to select which minute the appointment will take place.
      */
     private String[] minuteOptions = {"00","15","30","45"};
+    /** This holds the FXML combo box for the End Time Hour of an appointment.
+     */
     @FXML
     private ChoiceBox<String> choiceBoxEndTimeHour;
-
+    /** This holds the FXML combo box for the End Time Minute of an appointment.
+     */
     @FXML
     private ChoiceBox<String> choiceBoxEndTimeMinute;
-
+    /** This holds the FXML combo box for the Start Time Hour of an appointment.
+     */
     @FXML
     private ChoiceBox<String> choiceBoxStartTimeHour;
-
+    /** This holds the FXML combo box for the Start Time Minute of an appointment.
+     */
     @FXML
     private ChoiceBox<String> choiceBoxStartTimeMinute;
-
+    /** This class handles the Day on which the appointment will end.
+     */
     @FXML
     private DatePicker datePickerEndDate;
-
+    /** This class handles the Day on which the appointment will begin.
+     */
     @FXML
     private DatePicker datePickerStartDate;
-
+    /** This is a label that holds text and manages translation of the Appointment ID text.
+     */
     @FXML
     private Label labelAppointmentId;
-
+    /** This is a label that holds text and manages translation of the Contact ID text.
+     */
     @FXML
     private Label labelContactId;
-
+    /** This is a label that holds text and manages translation of the Customer ID text.
+     */
     @FXML
     private Label labelCustomerId;
-
+    /** This is a label that holds text and manages translation of the Description.
+     */
     @FXML
     private Label labelDescription;
-
+    /** This is a label that holds text and manages translation of the End Date label.
+     */
     @FXML
     private Label labelEndDate;
-
+    /** This is a label that holds text and manages translation of the End Time label.
+     */
     @FXML
     private Label labelEndTime;
-
+    /** This is a label that holds text and manages translation of the Header label.
+     */
     @FXML
     private Label labelHeader;
-
+    /** This is a label that holds text and manages translation of the Location text field label.
+     */
     @FXML
     private Label labelLocation;
-
+    /** This is a label that holds text and manages translation of the Start Date label.
+     */
     @FXML
     private Label labelStartDate;
-
+    /** This is a label that holds text and manages translation of the Start Time label.
+     */
     @FXML
     private Label labelStartTime;
-
+    /** This is a label that holds text and manages translation of the Title text field label.
+     */
     @FXML
     private Label labelTitle;
-
+    /** This is a label that holds text and manages translation of the Type text field label.
+     */
     @FXML
     private Label labelType;
-
+    /** This is a Combo Box that lets the user select a Contact ID.
+     */
     @FXML
     private ComboBox menuButtonContactId;
+    /** This variable represents which Contact was selected.
+     */
     private int selectedContact;
-
+    /** This is a menu button that holds Customer ID information.
+     */
     @FXML
     private MenuButton menuButtonCustomerId;
-
+    /** This holds int data for the appointment ID.
+     */
     public static int appointmentIdData;
-
+    /** This is a text field that holds the Appointment ID.
+     */
     @FXML
     private TextField textFieldAppointmentId;
-
+    /** This holds string data for the description.
+     */
     public static String descriptionData;
+    /** This is a text field that holds the Description.
+     */
     @FXML
     private TextField textFieldDescription;
-
+    /** This holds string data for the location.
+     */
     public static String locationData;
+    /** This is a text field that holds the Location string.
+     */
     @FXML
     private TextField textFieldLocation;
-
+    /** This holds string data for the title.
+     */
     public static String titleData;
+    /** This is a text field that holds the Title.
+     */
     @FXML
     private TextField textFieldTitle;
-
+    /** This holds string data for the type.
+     */
     public static String typeData;
+    /** This is a text field that holds the Type string.
+     */
     @FXML
     private TextField textFieldType;
+    /** This holds string data for the start date.
+     */
     public static String startData;
+    /** This holds string data for the end date.
+     */
     public static String endData;
+    /** This holds string data for the created date.
+     */
     public static String createDateData;
+    /** This holds string data for the created by.
+     */
     public static String createdByData;
+    /** This holds int data for the customer ID.
+     */
     public static int customerIdData;
+    /** This holds int data for the contact name.
+     */
     public static String contactNameData;
+    /** This is the selected appointment to be modified.
+     */
     public static Appointment selectedApp;
 
     /** This variable holds which contact the customer may contact for information about their appointment.
@@ -130,12 +184,22 @@ public class ModifyAppointmentController implements Initializable{
     private Customer selectedCustomer;
 
     // Manages the table of customers, the user can select which customer this appointment is for ------------------
+    /** This is a column for the customer ID.
+     */
     @FXML
     private TableColumn<Customer, Integer> customerIdColumn;
+    /** This is a column for the customer name.
+     */
     @FXML
     private TableColumn<Customer, String> customerNameColumn;
+    /** This is a table to represent the customers.
+     */
     @FXML
     private TableView<Customer> tableViewCustomerTable;
+    /** When the Modify Appointment page is initialized this method will run. It fills columns of the table and
+     * other data to combo boxes and text fields. It will also translate any text to either French or English depending on
+     * system default.
+     */
     public void initialize(URL url, ResourceBundle resourceBundle){
         // This loads up the options for the choice box---------------------------------------------------------
         choiceBoxEndTimeHour.getItems().addAll(hourOptions);
@@ -202,7 +266,8 @@ public class ModifyAppointmentController implements Initializable{
 
     }
 
-
+    /** Uses the current contact selected to set the selectedContact variable.
+     */
     public void selectContact(ActionEvent e){
         try {
             contact_id = String.valueOf(menuButtonContactId.getSelectionModel().getSelectedItem());
@@ -216,6 +281,10 @@ public class ModifyAppointmentController implements Initializable{
 
         }
     }
+    /** This method will save the appointment to the database. The method will go through a series of error checks to make
+     * sure that the appointment being added will cause no issues. If any check is failed the appointment will not be added and the user will get
+     * a message informing them why it failed to add.
+     */
     public void saveButtonClick(ActionEvent e) throws IOException, SQLException {
         // This will check to see if all fields hold data, as any empty text fields will throw an error----------------------
         if (textFieldTitle.getText().equals("")){
@@ -300,11 +369,13 @@ public class ModifyAppointmentController implements Initializable{
         Appointment.populateList();
         Form.changePageTo(e, "mainMenuViewAll.fxml");
     }
-
+    /** This method is assigned to a button and will take the user back to the main menu page.
+     */
     public void cancelButtonClick(ActionEvent e) throws IOException{
         Form.changePageTo(e, "mainMenuViewAll.fxml");
     }
-
+    /** This method is assigned to a button and will allow the user to select a customer to assign to an appointment.
+     */
     public int selectCustomer(ActionEvent e) throws IOException {
         selectedCustomer = tableViewCustomerTable.getSelectionModel().getSelectedItem();
         if (selectedCustomer != null) {

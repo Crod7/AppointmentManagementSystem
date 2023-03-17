@@ -6,8 +6,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
+/** This class is the main file. The program begins here.
+ */
 public class Main extends Application {
+    /** This will load up the initial UI page. The page is the login form.
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("login.fxml"));
@@ -16,7 +19,8 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
+    /** This is the Main method.
+     */
     public static void main(String[] args) {
         launch();
     }

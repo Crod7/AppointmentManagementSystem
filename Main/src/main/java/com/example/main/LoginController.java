@@ -20,23 +20,32 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
-
+/** This class controls the Login page.
+ */
 public class LoginController implements Initializable {
     /*Manages the buttons/ labels on screen-------------------------------------------------------------------------------------------*/
+    /** This button represents the login button.
+     */
     @FXML
     private Button buttonLogin;
+    /** This label displays text when an error occurs.
+     */
     @FXML
     private Label labelError;
-
+    /** This label displays text next to the password text field.
+     */
     @FXML
     private Label labelPassword;
-
+    /** This label displays text of current time zone.
+     */
     @FXML
     private Label labelTimeZoneChangeable;
-
+    /** This label displays text next to the time zone.
+     */
     @FXML
     private Label labelTimeZoneNonChangeable;
-
+    /** This label displays text.
+     */
     @FXML
     private Label labelUsername;
 
