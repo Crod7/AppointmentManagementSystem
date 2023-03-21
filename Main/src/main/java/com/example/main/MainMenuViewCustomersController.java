@@ -163,6 +163,23 @@ public class MainMenuViewCustomersController implements Initializable {
     public void deleteCustomerButtonClick(ActionEvent e) throws IOException {
         Customer selectedCustomer = tableviewMainMenuTable.getSelectionModel().getSelectedItem();
         //This will check to make sure that the customer has no appointments linked to them, if they have linked appointments, it will not allow their deletion
+        if (selectedCustomer != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle(Lang.print("Customers"));
+            alert.setHeaderText(Lang.print("Delete"));
+            alert.setContentText(Lang.print("Do")+" "+Lang.print("you")+" "+Lang.print("want")+" "+Lang.print("to")+" "+Lang.print("delete")
+                    +" "+Lang.print("this")+" "+Lang.print("Customer")+"?");
+            if (alert.showAndWait().get() == ButtonType.OK) {
+                Customer.deleteCustomer(selectedCustomer);
+            }
+        } else {
+            ErrorMessage.msg(Lang.print("Please")+" "+Lang.print("select")+" "+Lang.print("a")+" "+Lang.print("Customer")+" "+Lang.print("to")+" "+Lang.print("delete")+".");
+        }
+    }
+    /*
+    public void deleteCustomerButtonClick(ActionEvent e) throws IOException {
+        Customer selectedCustomer = tableviewMainMenuTable.getSelectionModel().getSelectedItem();
+        //This will check to make sure that the customer has no appointments linked to them, if they have linked appointments, it will not allow their deletion
         if (Appointment.checkIfCustomerIsEmpty(selectedCustomer) == 0){
             if (selectedCustomer != null) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -182,4 +199,5 @@ public class MainMenuViewCustomersController implements Initializable {
                     Lang.print("customer")+" "+Lang.print("are")+" "+Lang.print("deleted")+" "+Lang.print("first")+".");
         }
     }
+    */
 }

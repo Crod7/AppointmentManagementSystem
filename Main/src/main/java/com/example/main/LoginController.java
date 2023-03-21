@@ -19,6 +19,7 @@ import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ResourceBundle;
 /** This class controls the Login page.
  */
@@ -67,6 +68,7 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         labelUsername.setText(Lang.print("Username"));
         labelPassword.setText(Lang.print("Password"));
+        labelTimeZoneChangeable.setText(String.valueOf(ZoneId.systemDefault()));
         labelTimeZoneNonChangeable.setText(Lang.print("Time")+" "+Lang.print("Zone"));
         buttonLogin.setText(Lang.print("Login"));
     }
@@ -75,7 +77,9 @@ public class LoginController implements Initializable {
     public void loginButtonClick(ActionEvent e) throws IOException{
         int errorCheck = 0;
         LocalDateTime time = LocalDateTime.now();
+        System.out.println(time);
         String loginTime = TimeConversion.ConvertToUtcWithSeconds(time.toLocalDate(), time.getHour(), time.getMinute(), time.getSecond());
+        System.out.println(loginTime);
         try {
             ResultSet rs = Query.queryDB("SELECT * FROM users");
             while(rs.next()){
