@@ -286,7 +286,6 @@ public class Appointment {
     public static boolean updateAppointment(Appointment selectedAppointment){
         Query.deleteQueryDB("SELECT * FROM appointments WHERE appointment_id =" + selectedAppointment.getAppointmentId());
         allAppointments.remove(selectedAppointment);
-        Appointment.populateList();
         return true;
     }
     /** Uses a LAMBDA expression to refresh the database appointments with the UI Observable List. Calling this will
@@ -319,11 +318,60 @@ public class Appointment {
                         rs.getString("description"),
                         rs.getString("location"),
                         rs.getString("type"),
-                        TimeConversion.ConvertToLocal(rs.getString("start")),
-                        TimeConversion.ConvertToLocal(rs.getString("end")),
+                        //TimeConversion.ConvertToLocal(rs.getString("start")),
+                        String.valueOf(rs.getTimestamp("start")),
+                        //TimeConversion.ConvertToLocal(rs.getString("end")),
+                        String.valueOf(rs.getTimestamp("end")),
                         TimeConversion.ConvertToLocal(rs.getString("create_date")),
                         rs.getString("created_by"),
                         TimeConversion.ConvertToLocal(rs.getString("last_update")),
+                        rs.getString("last_updated_by"),
+                        rs.getInt("customer_id"),
+                        rs.getInt("user_id"),
+                        contactNameFound);
+                //THIS IS THE LAMBDA EXPRESSION
+                MyInterface addAppointment = () -> allAppointments.add(appObject);
+                addAppointment.run();
+            }
+        }catch (SQLException se){
+
+        }
+    }
+    /** Uses a LAMBDA expression to refresh the database appointments with the UI Observable List. Calling this will
+     * keep the List up to date. This is used for keeping table views up to date and accurate. If this is not called,
+     * the UI and database will not have matching data.
+     */
+    public static void populateListFromModify(){
+        try {
+            allAppointments.clear();
+
+            Contact.populateList();
+
+
+            ResultSet rs = Query.queryDB("SELECT * FROM appointments");
+
+            while (rs.next()) {
+
+                int contactId = rs.getInt("contact_id");
+                ResultSet cs = Query.queryDB("SELECT * FROM contacts WHERE contact_id = " + String.valueOf(contactId));
+                String contactNameFound = "empty";
+                while (cs.next()){
+                    contactNameFound = cs.getString("contact_name");
+                }
+
+
+
+                Appointment appObject = new Appointment(
+                        rs.getInt("appointment_id"),
+                        rs.getString("title"),
+                        rs.getString("description"),
+                        rs.getString("location"),
+                        rs.getString("type"),
+                        (rs.getString("start")),
+                        (rs.getString("end")),
+                        (rs.getString("create_date")),
+                        rs.getString("created_by"),
+                        (rs.getString("last_update")),
                         rs.getString("last_updated_by"),
                         rs.getInt("customer_id"),
                         rs.getInt("user_id"),

@@ -38,7 +38,7 @@ public class Query {
      * @param contact_id the contact that can be called for this appointment.
      * @param user_id the user ID that created this appointment.
      */
-    public static ResultSet addToQueryDB(int id, String title, String desc, String locate, String type, String startDate, String endDate, String create_date, String created_by, String last_update, String last_updated_by, int customer_id, int user_id, int contact_id){
+    public static ResultSet addToQueryDB(int id, String title, String desc, String locate, String type, LocalDateTime startDate, LocalDateTime endDate, String create_date, String created_by, String last_update, String last_updated_by, int customer_id, int user_id, int contact_id){
         try {
             JDBC.connection = DriverManager.getConnection(JDBC.jdbcUrl, JDBC.userName, JDBC.password);
             Statement stmt = JDBC.connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -53,6 +53,7 @@ public class Query {
             rs.updateString("Location", locate);
             rs.updateString("Type", type);
             rs.updateTimestamp("Start", Timestamp.valueOf(startDate));
+            System.out.println(Timestamp.valueOf(startDate));
             rs.updateTimestamp("End", Timestamp.valueOf(endDate));
             rs.updateTimestamp("Create_Date", Timestamp.valueOf(create_date));
             rs.updateTimestamp("Last_Update", Timestamp.valueOf(last_update));
@@ -145,6 +146,38 @@ public class Query {
         } catch (SQLException se){
         }
     }
+
+
+
+    public static void modifyAppointmentToQueryDB(int id, String name, String address, String postal, String phone, String createDate, String createdBy, String update, String updatedBy, int divisionId){
+        try {
+            JDBC.connection = DriverManager.getConnection(JDBC.jdbcUrl, JDBC.userName, JDBC.password);
+            Statement stmt = JDBC.connection.createStatement();
+            String sql ="UPDATE customers SET customer_name = '" + name + "' WHERE customer_id = " + (id);
+            int rowsAffected = stmt.executeUpdate(sql);
+            sql ="UPDATE customers SET address = '" + address + "' WHERE customer_id = " + (id);
+            rowsAffected = stmt.executeUpdate(sql);
+            sql ="UPDATE customers SET postal_code = '" + postal + "' WHERE customer_id = " + (id);
+            rowsAffected = stmt.executeUpdate(sql);
+            sql ="UPDATE customers SET phone = '" + phone + "' WHERE customer_id = " + (id);
+            rowsAffected = stmt.executeUpdate(sql);
+            sql ="UPDATE customers SET create_date = '" + createDate + "' WHERE customer_id = " + (id);
+            rowsAffected = stmt.executeUpdate(sql);
+            sql ="UPDATE customers SET created_by = '" + createdBy + "' WHERE customer_id = " + (id);
+            rowsAffected = stmt.executeUpdate(sql);
+            sql ="UPDATE customers SET last_update = '" + update + "' WHERE customer_id = " + (id);
+            rowsAffected = stmt.executeUpdate(sql);
+            sql ="UPDATE customers SET last_updated_by = '" + updatedBy + "' WHERE customer_id = " + (id);
+            rowsAffected = stmt.executeUpdate(sql);
+            sql ="UPDATE customers SET division_id = '" + divisionId + "' WHERE customer_id = " + (id);
+            rowsAffected = stmt.executeUpdate(sql);
+
+
+        } catch (SQLException se){
+        }
+    }
+
+
     /** This method is used when the user needs to delete a row from the database.
      * @param queryCode This is the string that will be used to query the database.
      */

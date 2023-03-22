@@ -327,17 +327,29 @@ public class ModifyAppointmentController implements Initializable{
         //These dates are converted to UTC so that when other users download the data it will be converted to their local time-----------------------------------
         LocalDateTime currentLocalTime = LocalDateTime.now();
         String createTime = TimeConversion.ConvertToUtc(currentLocalTime.toLocalDate(), currentLocalTime.getHour(), currentLocalTime.getMinute());
-        String startTime = TimeConversion.ConvertToUtc(datePickerStartDate.getValue(), parseInt(choiceBoxStartTimeHour.getValue()), parseInt(choiceBoxStartTimeMinute.getValue()));
-        String endTime = TimeConversion.ConvertToUtc(datePickerEndDate.getValue(), parseInt(choiceBoxEndTimeHour.getValue()), parseInt(choiceBoxEndTimeMinute.getValue()));
-        //This will check to see if the appointment starts and ends during business hours, 8am to 10pm EST----------------------------------------------------
-        if (BusinessHours.checkIfOpen(startTime, endTime)){
+
+        String startTimeCheckIfOpen = TimeConversion.ConvertToUtc(datePickerStartDate.getValue(), parseInt(choiceBoxStartTimeHour.getValue()), parseInt(choiceBoxStartTimeMinute.getValue()));
+        String endTimeCheckIfOpen = TimeConversion.ConvertToUtc(datePickerEndDate.getValue(), parseInt(choiceBoxEndTimeHour.getValue()), parseInt(choiceBoxEndTimeMinute.getValue()));
+
+        LocalDateTime startTime = TimeConversion.ConvertToLocalDateTime(datePickerStartDate.getValue(), Integer.parseInt(choiceBoxStartTimeHour.getValue()), Integer.parseInt(choiceBoxStartTimeMinute.getValue()));
+        LocalDateTime endTime = TimeConversion.ConvertToLocalDateTime(datePickerEndDate.getValue(), Integer.parseInt(choiceBoxEndTimeHour.getValue()), Integer.parseInt(choiceBoxEndTimeMinute.getValue()));
+
+
+
+
+        if (BusinessHours.checkIfOpen(startTimeCheckIfOpen, endTimeCheckIfOpen)){
             ErrorMessage.msg(Lang.print("Store")+" "+Lang.print("hours")+" "+Lang.print("between")+" 8:00am - 10:00pm EST" );
             return;
         }
+        //startTime = TimeConversion.ConvertToLocal(startTime);
+        //endTime = TimeConversion.ConvertToLocal(endTime);
+        //System.out.println(startTime);
+
+
         //This will make sure that the beginning of an appointment starts before the end of the appointment-------------------------------------------------
         //If hour the same, minute must be less
-        LocalDateTime startCheck = TimeConversion.ConvertToTimeObj(startTime);
-        LocalDateTime endCheck = TimeConversion.ConvertToTimeObj(endTime);
+        LocalDateTime startCheck = TimeConversion.ConvertToTimeObj(startTimeCheckIfOpen);
+        LocalDateTime endCheck = TimeConversion.ConvertToTimeObj(endTimeCheckIfOpen);
         if (startCheck.isAfter(endCheck) || startCheck.isEqual(endCheck)){
             ErrorMessage.msg(Lang.print("Appointment")+" "+Lang.print("must")+" "+Lang.print("start")+" "+Lang.print("before")+" "+Lang.print("End")+" "+Lang.print("of")+" "+Lang.print("Appointment")+".");
             return;
@@ -352,7 +364,7 @@ public class ModifyAppointmentController implements Initializable{
             return;
         }
         //We check to see if any other appointment is taking up this time, as we cannot have overlapping appointments-----------------------------------------
-        if (OverlappingAppointments.checkIfAvailableModifyAppointment(startTime, endTime, appointmentIdData)){
+        if (OverlappingAppointments.checkIfAvailableModifyAppointment(startTimeCheckIfOpen, endTimeCheckIfOpen, appointmentIdData)){
             ErrorMessage.msg("Appointment is overlapping with another Appointment.");
             return;
         }

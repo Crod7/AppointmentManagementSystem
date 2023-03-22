@@ -23,6 +23,16 @@ public class TimeConversion {
         String result = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(utcZDT);
         return  result;
     }
+
+    public static LocalDateTime ConvertToLocalDateTimeFromDB(String date) {
+        int year = Integer.parseInt(date.substring(0,4));
+        int month = Integer.parseInt(date.substring(5,7));
+        int day = Integer.parseInt(date.substring(8,10));
+        int hour = Integer.parseInt(date.substring(11,13));
+        int minute = Integer.parseInt(date.substring(14,16));
+        LocalDateTime myLDT = LocalDateTime.of(year,month,day,hour,minute,0);
+        return  myLDT;
+    }
     /** This method converts a date string to  the eastern time zone.
      * @param date this is the date string that will be converted.
      * @return the new date as a string.
@@ -49,11 +59,15 @@ public class TimeConversion {
      */
     public static String ConvertToUtc(LocalDate date, int hour, int minute) {
         LocalDateTime myLDT = LocalDateTime.of(date.getYear(),date.getMonth(),date.getDayOfMonth(),hour,minute,0);
+
         ZoneId myZoneId = ZoneId.systemDefault();
         ZonedDateTime myZDT = ZonedDateTime.of(myLDT, myZoneId);
+
         ZoneId utcZoneId = ZoneId.of("UTC");
         ZonedDateTime utcZDT = ZonedDateTime.ofInstant(myZDT.toInstant(), utcZoneId);
+
         String result = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(utcZDT);
+
         return  result;
 
     }
@@ -86,6 +100,14 @@ public class TimeConversion {
         int minute = Integer.parseInt(date.substring(14,16));
         LocalDateTime myLDT = LocalDateTime.of(year,month,day,hour,minute,0);
         return  myLDT;
+    }
+
+
+    public static LocalDateTime ConvertToLocalDateTime(LocalDate date, int hour, int minute) {
+        LocalDateTime myLDT = LocalDateTime.of(date.getYear(),date.getMonth(),date.getDayOfMonth(),hour,minute,0);
+
+        return  myLDT;
+
     }
 
 }
