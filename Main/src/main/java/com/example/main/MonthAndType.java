@@ -39,6 +39,12 @@ public class MonthAndType {
     public String getMonth() {
         return month;
     }
+    /** This gets the quantity.
+     * @return the quantity.
+     */
+    public int getQuantity() {
+        return quantity;
+    }
     /** This sets the month.
      * @param month The month to be set.
      */

@@ -28,6 +28,12 @@ public class CustomerTotal {
     public String getCountry() {
         return country;
     }
+    /** This gets the quantity.
+     * @return the quantity.
+     */
+    public int getQuantity() {
+        return quantity;
+    }
     /** This method sets the country string.
      */
     public void setCountry(String country) {

@@ -1,4 +1,3 @@
 ALL USER ID'S, AND DATA IS RECORDED IN UTC TIME
 ===========================================================================
 USER        || ATTEMPTED LOGIN IN UTC TIME            || STATUS OF LOGIN ATTEMPT
-

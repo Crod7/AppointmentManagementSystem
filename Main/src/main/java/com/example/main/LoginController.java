@@ -77,9 +77,7 @@ public class LoginController implements Initializable {
     public void loginButtonClick(ActionEvent e) throws IOException{
         int errorCheck = 0;
         LocalDateTime time = LocalDateTime.now();
-        System.out.println(time);
         String loginTime = TimeConversion.ConvertToUtcWithSeconds(time.toLocalDate(), time.getHour(), time.getMinute(), time.getSecond());
-        System.out.println(loginTime);
         try {
             ResultSet rs = Query.queryDB("SELECT * FROM users");
             while(rs.next()){
