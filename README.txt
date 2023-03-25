@@ -13,6 +13,20 @@ JDK Version: javac 19.0.2
 JavaFX Version: 17.0.02              Location:     C:\Users\crodr\AppData\Local\SceneBuilder\SceneBuilder.exe
 MYSQL Connector driver Version: mysql-connector-j-8.0.16
 
+Directions To Set Up Program ============================================================
+1. Set up a mySQL server. 
+		Default Settings: run on local host,
+					name it "client_schedule"
+					make the username to login to the database: sqlUser
+					the password should be Passw0rd!
+2. Run ddl_for_DataBase.txt in the server.
+3. Run dml_for_DataBase.txt in the server.
+4. Run the program and use as you like.
+
+SIDE-NOTE: If you wish to change any of the server information such as the
+database name or where it is hosted, make sure you edit these changes
+in JDBC.java as well.
+======================================================================
 
 Directions To Run Program ============================================================
 1. Login to the program either by entering USERNAME:admin PASSWORD:admin or by 

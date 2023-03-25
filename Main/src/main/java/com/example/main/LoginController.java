@@ -86,7 +86,7 @@ public class LoginController implements Initializable {
                 if (textFieldUsername.getText().equals(rs.getString("User_Name"))) {
                     if (textFieldPassword.getText().equals(rs.getString("Password"))){
                         BufferedWriter writer = new BufferedWriter(new FileWriter("login_activity.txt",true));
-                        writer.append("\nUser: " +textFieldUsername.getText()+" || Attempted login at " + loginTime +" || Login Successful!");
+                        writer.append("\nUser: " +textFieldUsername.getText()+" || Attempted login at " + loginTime +" [UTC] || Login Successful!");
                         writer.close();
                         errorCheck = errorCheck + 1;
                         username = rs.getString("User_Name");
@@ -98,7 +98,7 @@ public class LoginController implements Initializable {
                     } else{
                         if (errorCheck == 0){
                             BufferedWriter writer = new BufferedWriter(new FileWriter("login_activity.txt",true));
-                            writer.append("\nUser: " +textFieldUsername.getText()+" || Attempted login at " + loginTime +" || Login Failed!");
+                            writer.append("\nUser: " +textFieldUsername.getText()+" || Attempted login at " + loginTime +" [UTC] || Login Failed!");
                             writer.close();
                             errorCheck = errorCheck + 1;
                         }
@@ -111,7 +111,7 @@ public class LoginController implements Initializable {
             }
             if (errorCheck == 0){
                 BufferedWriter writer = new BufferedWriter(new FileWriter("login_activity.txt",true));
-                writer.append("\nUser: " +textFieldUsername.getText()+" || Attempted login at " + loginTime +" || Login Failed!");
+                writer.append("\nUser: " +textFieldUsername.getText()+" || Attempted login at " + loginTime +" [UTC] || Login Failed!");
                 writer.close();
                 errorCheck = errorCheck + 1;
             }
