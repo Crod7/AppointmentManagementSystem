@@ -1,3 +1,4 @@
+## Title
 Title: Appointment Management System
 Purpose: To help the user organize and maintain customers and appointments within a MySQL database using a UI 
 created with Java. The UI makes it simple to add, remove, modify and manage useful data about cusotmers 
@@ -8,12 +9,9 @@ Contact: crodriguezyt10@gmail.com
 Student Application Version: 1.0
 Date: 3/20/2023
 
-IDE Version: IntelliJ IDEA 2022.2.3(Community Edition)		
-JDK Version: javac 19.0.2			
-JavaFX Version: 17.0.02              Location:     C:\Users\crodr\AppData\Local\SceneBuilder\SceneBuilder.exe
 MYSQL Connector driver Version: mysql-connector-j-8.0.16
 
-Directions To Set Up Program ============================================================
+## Directions To Set Up Program
 1. Set up a mySQL server. 
 		Default Settings: run on local host,
 					name it "client_schedule"
@@ -26,9 +24,9 @@ Directions To Set Up Program ===================================================
 SIDE-NOTE: If you wish to change any of the server information such as the
 database name or where it is hosted, make sure you edit these changes
 in JDBC.java as well.
-======================================================================
 
-Directions To Run Program ============================================================
+
+## Directions To Run Program
 1. Login to the program either by entering USERNAME:admin PASSWORD:admin or by 
 entering USERNAME:test PASSWORD:test
 2. Once logged in the user can create customers and appointments.
@@ -36,9 +34,5 @@ entering USERNAME:test PASSWORD:test
 the error messages will tell the user how to resolve issues.
 4. The user can also look at the reports tab to display a collection of information together to make
 use of the data collected.
-======================================================================
 
-Additional Report ============================================================
-  The additional report displays the total number of customers depending on the Country
-they reside in. This is useful for understanding where the market is strong and where the market 
-has less impact on the business. 
+
