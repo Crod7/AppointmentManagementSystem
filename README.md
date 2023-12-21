@@ -1,17 +1,21 @@
 ## Appointment Management System
+
+![giphy](https://github.com/Crod7/Java-Appointment-Management-System/assets/106417568/d0b0227c-7c5a-4efd-8dfc-73660b8337fc)
+
 Purpose: To help the user organize and maintain customers and appointments within a MySQL database using a UI 
 created with Java. The UI makes it simple to add, remove, modify and manage useful data about cusotmers 
 and appointments.
 
-Author: Carlos Rodriguez
-Contact: crodriguezyt10@gmail.com
-Date: 3/20/2023
-
-MYSQL Connector driver Version: mysql-connector-j-8.0.16
 
 ## Directions To Set Up Program
-The User should have basic knowledge in setting up a locally hosted mySQL server using "MySQL Workbench".
+The User should have basic knowledge in setting up a locally hosted MySQL servers using "MySQL Workbench".
+
+IDE:
 This setup is for intelliJ users.
+
+MySQL Connector:
+MYSQL Connector driver Version: mysql-connector-j-8.0.16
+
 
 1. Set up a mySQL server. 
 		Default Settings: run on local host,
