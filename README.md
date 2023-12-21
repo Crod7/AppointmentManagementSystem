@@ -1,10 +1,10 @@
 # Appointment Management System
-## Features:
-
-Ability to add and remove appointments
+Features:
+<br />
+Ability to add and remove appointments <br />
 ![giphy](https://github.com/Crod7/Java-Appointment-Management-System/assets/106417568/d0b0227c-7c5a-4efd-8dfc-73660b8337fc)
 
-Ability to manage customers and their appointments are linked to them
+Ability to manage customers and their appointments are linked to them <br />
 ![giphy](https://github.com/Crod7/Java-Appointment-Management-System/assets/106417568/6cbab4b2-d44b-4e34-9a29-4e2095c5c367)
 
 Purpose: To help the user organize and maintain customers and appointments within a MySQL database using a UI 
