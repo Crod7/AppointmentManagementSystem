@@ -1,5 +1,5 @@
 ## Appointment Management System
-Features:
+# Features:
 Ability to add and remove appointments
 ![giphy](https://github.com/Crod7/Java-Appointment-Management-System/assets/106417568/d0b0227c-7c5a-4efd-8dfc-73660b8337fc)
 
