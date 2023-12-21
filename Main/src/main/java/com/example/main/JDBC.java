@@ -15,7 +15,7 @@ public class JDBC {
     private static final String vendor = ":mysql:";
     /** This variable holds the location of the connection, which is the local host.
      */
-    private static final String location = "//localhost/";
+    private static final String location = "//localhost:3306/";
     /** This variable holds the name of the database, client_schedule.
      */
     private static final String databaseName = "client_schedule";
@@ -27,7 +27,7 @@ public class JDBC {
     private static final String driver = "com.mysql.cj.jdbc.Driver"; // Driver reference
     /** This variable holds the string of the username that will log in to the database.
      */
-    public static final String userName = "sqlUser"; // Username
+    public static final String userName = "root"; // Username
     /** This variable holds the string password for the connection.
      */
     public static String password = "Passw0rd!"; // Password

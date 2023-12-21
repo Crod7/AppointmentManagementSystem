@@ -80,33 +80,36 @@ public class LoginController implements Initializable {
         String loginTime = TimeConversion.ConvertToUtcWithSeconds(time.toLocalDate(), time.getHour(), time.getMinute(), time.getSecond());
         try {
             ResultSet rs = Query.queryDB("SELECT * FROM users");
-            while(rs.next()){
-                if (textFieldUsername.getText().equals(rs.getString("User_Name"))) {
-                    if (textFieldPassword.getText().equals(rs.getString("Password"))){
-                        BufferedWriter writer = new BufferedWriter(new FileWriter("login_activity.txt",true));
-                        writer.append("\nUser: " +textFieldUsername.getText()+" || Attempted login at " + loginTime +" [UTC] || Login Successful!");
-                        writer.close();
-                        errorCheck = errorCheck + 1;
-                        username = rs.getString("User_Name");
-                        JDBC.openConnection();
-                        Appointment.populateList();
-                        Customer.populateList();
-                        Form.changePageTo(e, "mainMenuViewAll.fxml");
-                        UpcomingAppointmentAlert.upcomingAppointment();
-                    } else{
-                        if (errorCheck == 0){
+            if (rs != null) {
+                while(rs.next()){
+                    if (textFieldUsername.getText().equals(rs.getString("User_Name"))) {
+                        if (textFieldPassword.getText().equals(rs.getString("Password"))){
                             BufferedWriter writer = new BufferedWriter(new FileWriter("login_activity.txt",true));
-                            writer.append("\nUser: " +textFieldUsername.getText()+" || Attempted login at " + loginTime +" [UTC] || Login Failed!");
+                            writer.append("\nUser: " +textFieldUsername.getText()+" || Attempted login at " + loginTime +" [UTC] || Login Successful!");
                             writer.close();
                             errorCheck = errorCheck + 1;
+                            username = rs.getString("User_Name");
+                            JDBC.openConnection();
+                            Appointment.populateList();
+                            Customer.populateList();
+                            Form.changePageTo(e, "mainMenuViewAll.fxml");
+                            UpcomingAppointmentAlert.upcomingAppointment();
+                        } else{
+                            if (errorCheck == 0){
+                                BufferedWriter writer = new BufferedWriter(new FileWriter("login_activity.txt",true));
+                                writer.append("\nUser: " +textFieldUsername.getText()+" || Attempted login at " + loginTime +" [UTC] || Login Failed!");
+                                writer.close();
+                                errorCheck = errorCheck + 1;
+                            }
+                            labelError.setText(Lang.print("ERROR")+" "+Lang.print("Invalid")+" "+Lang.print("Password"));
                         }
-                        labelError.setText(Lang.print("ERROR")+" "+Lang.print("Invalid")+" "+Lang.print("Password"));
-                    }
 
-                }else{
-                    labelError.setText(Lang.print("ERROR")+" "+Lang.print("Invalid")+" "+Lang.print("Login"));
+                    }else{
+                        labelError.setText(Lang.print("ERROR")+" "+Lang.print("Invalid")+" "+Lang.print("Login"));
+                    }
                 }
             }
+
             if (errorCheck == 0){
                 BufferedWriter writer = new BufferedWriter(new FileWriter("login_activity.txt",true));
                 writer.append("\nUser: " +textFieldUsername.getText()+" || Attempted login at " + loginTime +" [UTC] || Login Failed!");
@@ -114,6 +117,7 @@ public class LoginController implements Initializable {
                 errorCheck = errorCheck + 1;
             }
         }catch(SQLException se){
+            se.printStackTrace();
         }
     }
 }

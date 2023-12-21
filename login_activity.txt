@@ -1,3 +1,20 @@
 ALL USER ID'S, AND DATA IS RECORDED IN UTC TIME
 ===========================================================================
 USER        || ATTEMPTED LOGIN IN UTC TIME            || STATUS OF LOGIN ATTEMPT
+
+User: admin || Attempted login at 2023-12-21 05:34:03 [UTC] || Login Failed!
+User: admin || Attempted login at 2023-12-21 05:34:06 [UTC] || Login Failed!
+User: admin || Attempted login at 2023-12-21 05:34:06 [UTC] || Login Failed!
+User: admin || Attempted login at 2023-12-21 05:34:06 [UTC] || Login Failed!
+User: admin || Attempted login at 2023-12-21 05:34:06 [UTC] || Login Failed!
+User: admin || Attempted login at 2023-12-21 05:34:06 [UTC] || Login Failed!
+User: admin || Attempted login at 2023-12-21 05:34:07 [UTC] || Login Failed!
+User: admin || Attempted login at 2023-12-21 05:37:40 [UTC] || Login Failed!
+User: admin || Attempted login at 2023-12-21 05:38:36 [UTC] || Login Failed!
+User: admin || Attempted login at 2023-12-21 05:41:15 [UTC] || Login Failed!
+User: admin || Attempted login at 2023-12-21 05:46:39 [UTC] || Login Failed!
+User: admin || Attempted login at 2023-12-21 05:48:36 [UTC] || Login Failed!
+User: admin || Attempted login at 2023-12-21 05:49:36 [UTC] || Login Failed!
+User: admin || Attempted login at 2023-12-21 05:51:59 [UTC] || Login Successful!
+User: admin || Attempted login at 2023-12-21 05:52:35 [UTC] || Login Successful!
+User: admin || Attempted login at 2023-12-21 06:02:21 [UTC] || Login Successful!
